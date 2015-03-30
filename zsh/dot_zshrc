@@ -1,0 +1,446 @@
+## UTF-8と日本語
+export LANG=ja_JP.UTF-8
+
+#autoload colors
+#colors
+
+## 通常のプロンプト
+PROMPT="%{${fg[yellow]}%}%~%{${reset_color}%}
+%n% %% "
+
+## forやwhile/複数行入力時などに表示されるプロンプト
+PROMPT2="%_%% "
+
+## SPROMPTは入力ミスを確認する場合に表示されるプロンプト
+SPROMPT="%r is correct? [n,y,a,e]: "
+
+## 右のプロンプト（長くなれば自動的に消す）
+# RPROMPT=$GREEN'[%~]'$WHITE
+#setopt transient_rprompt
+
+## zcompletionsの設定。setup.shを実行しておくこと。
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+## ヒストリー
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_dups
+setopt share_history
+
+## Emacs風キーバインドにする
+bindkey -e
+
+## 履歴検索機能のショートカット
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+## ターミナルのホスト名
+
+case "${TERM}" in
+kterm*|xterm)
+    precmd() {
+        echo -ne "\033]0;${USER}@${HOST}\007"
+    }
+    ;;
+esac 
+
+## 補完機能
+autoload -U compinit -u
+zstyle ':completion:*' list-colors ''
+
+## ディレクトリ名だけで移動
+setopt auto_cd
+
+## 今まで移動したディレクトリを記憶
+# cd +<Tab>` でディレクトリの履歴が表示され、そこに移動できる
+setopt auto_pushd
+
+## コマンドを間違っていれば修正
+setopt correct
+
+## 補完機能をつめて表示
+setopt list_packed
+
+## 音はならさない
+setopt nolistbeep
+
+## 先方予測機能
+autoload predict-on
+predict-on
+
+## ショートカット
+hash -d dropbox=~/Dropbox
+
+## 入力したコマンドが履歴にあったら古いほうから削除
+setopt hist_ignore_all_dups
+
+## スペースで始まるコマンドは履歴にのせない
+setopt hist_ignore_space
+
+## tabでパス名の補完候補表示後、続けてTab押して候補からパス名の選択。
+# 候補選択はTab
+zstyle ':completion:*:default' menu select=1
+
+## 毎回削除が走るので、単語の一部として扱われる文字のセット指定。
+# デフォルトセットから/を抜いたものまで。
+# これでCtrl-Wでカーソル前の単語を削除しても/でとまるらしい。やった！
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+## エイリアスもろもろ
+alias ls="ls -G -w"
+alias la="ls -a"
+alias lf="ls -F"
+alias ll="ls -l"
+alias du="du -h"
+alias df="df -h"
+alias vi="vim"
+
+# # 2つ上、3つ上にも移動できるようにする
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+## git-cdrootの設定
+# $ cdu
+# でgitのrootフォルダに一発移動。
+fpath=($HOME/.zsh/functions/(N-/) $fpath)
+autoload -Uz cd-gitroot
+alias cdu='cd-gitroot'
+
+## cdするときに今いるディレクトリを補完先から外す
+zstyle ':completion:*' ignore-parents parent pwd ..
+
+## sshのホスト名補完
+autoload -U compinit -u  && compinit -u
+function print_known_hosts (){ 
+  if [ -f $HOME/.ssh/known_hosts ]; then
+    cat $HOME/.ssh/known_hosts | tr ',' ' ' | cut -d' ' -f1 
+  fi
+}
+_cache_hosts=($( print_known_hosts ))
+
+## デフォルトだとRが起動しなくなってしまうのでdisable
+disable r
+
+## コマンドラインからWebの検索をする
+# 使い方 $ google vim rails
+# url: $1, delimiter: $2, prefix: $3, words: $4..
+function web_search {
+  local url=$1       && shift
+  local delimiter=$1 && shift
+  local prefix=$1    && shift
+  local query
+
+  while [ -n "$1" ]; do
+    if [ -n "$query" ]; then
+      query="${query}${delimiter}${prefix}$1"
+    else
+      query="${prefix}$1"
+    fi
+    shift
+  done
+
+  open "${url}${query}"
+}
+
+## qiita
+function qiita () {
+  web_search "http://qiita.com/search?utf8=✓&q=" "+" "" $*
+}
+
+## google
+function google () {
+  web_search "https://www.google.co.jp/search?&q=" "+" "" $*
+}
+
+# search in metacpan
+function perldoc() {
+  command perldoc $1 2>/dev/null
+  [ $? -ne 0 ] && web_search "https://metacpan.org/search?q=" "+" "" $*
+  return 0
+}
+
+# search in rurima
+function rurima () {
+  web_search "http://rurema.clear-code.com" "/" "query:" $*
+}
+
+# search in rubygems
+function gems () {
+  web_search "http://rubygems.org/search?utf8=✓&query=" "+" "" $*
+}
+
+# search in github
+function github () {
+  web_search "https://github.com/search?type=Code&q=" "+" "" $*
+}
+
+
+### Git関連のプロンプト
+
+RPROMPT=""
+
+autoload -Uz vcs_info
+autoload -Uz add-zsh-hook
+autoload -Uz is-at-least
+autoload -Uz colors
+
+# 以下の3つのメッセージをエクスポートする
+#   $vcs_info_msg_0_ : 通常メッセージ用 (緑)
+#   $vcs_info_msg_1_ : 警告メッセージ用 (黄色)
+#   $vcs_info_msg_2_ : エラーメッセージ用 (赤)
+zstyle ':vcs_info:*' max-exports 3
+
+zstyle ':vcs_info:*' enable git svn hg bzr
+# 標準のフォーマット(git 以外で使用)
+# misc(%m) は通常は空文字列に置き換えられる
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '%m' '<!%a>'
+zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
+zstyle ':vcs_info:bzr:*' use-simple true
+
+
+if is-at-least 4.3.10; then
+    # git 用のフォーマット
+    # git のときはステージしているかどうかを表示
+    zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
+    zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
+    zstyle ':vcs_info:git:*' check-for-changes true
+    zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
+    zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
+fi
+
+# hooks 設定
+if is-at-least 4.3.11; then
+    # git のときはフック関数を設定する
+
+    # formats '(%s)-[%b]' '%c%u %m' , actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
+    # のメッセージを設定する直前のフック関数
+    # 今回の設定の場合はformat の時は2つ, actionformats の時は3つメッセージがあるので
+    # 各関数が最大3回呼び出される。
+    zstyle ':vcs_info:git+set-message:*' hooks \
+                                            git-hook-begin \
+                                            git-untracked \
+                                            git-push-status \
+                                            git-nomerge-branch \
+                                            git-stash-count
+
+    # フックの最初の関数
+    # git の作業コピーのあるディレクトリのみフック関数を呼び出すようにする
+    # (.git ディレクトリ内にいるときは呼び出さない)
+    # .git ディレクトリ内では git status --porcelain などがエラーになるため
+    function +vi-git-hook-begin() {
+        if [[ $(command git rev-parse --is-inside-work-tree 2> /dev/null) != 'true' ]]; then
+            # 0以外を返すとそれ以降のフック関数は呼び出されない
+            return 1
+        fi
+
+        return 0
+    }
+
+    # untracked フィアル表示
+    #
+    # untracked ファイル(バージョン管理されていないファイル)がある場合は
+    # unstaged (%u) に ? を表示
+    function +vi-git-untracked() {
+        # zstyle formats, actionformats の2番目のメッセージのみ対象にする
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if command git status --porcelain 2> /dev/null \
+            | awk '{print $1}' \
+            | command grep -F '??' > /dev/null 2>&1 ; then
+
+            # unstaged (%u) に追加
+            hook_com[unstaged]+='?'
+        fi
+    }
+
+    # push していないコミットの件数表示
+    #
+    # リモートリポジトリに push していないコミットの件数を
+    # pN という形式で misc (%m) に表示する
+    function +vi-git-push-status() {
+        # zstyle formats, actionformats の2番目のメッセージのみ対象にする
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if [[ "${hook_com[branch]}" != "master" ]]; then
+            # master ブランチでない場合は何もしない
+            return 0
+        fi
+
+        # push していないコミット数を取得する
+        local ahead
+        ahead=$(command git rev-list origin/master..master 2>/dev/null \
+            | wc -l \
+            | tr -d ' ')
+
+        if [[ "$ahead" -gt 0 ]]; then
+            # misc (%m) に追加
+            hook_com[misc]+="(p${ahead})"
+        fi
+    }
+
+    # マージしていない件数表示
+    #
+    # master 以外のブランチにいる場合に、
+    # 現在のブランチ上でまだ master にマージしていないコミットの件数を
+    # (mN) という形式で misc (%m) に表示
+    function +vi-git-nomerge-branch() {
+        # zstyle formats, actionformats の2番目のメッセージのみ対象にする
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        if [[ "${hook_com[branch]}" == "master" ]]; then
+            # master ブランチの場合は何もしない
+            return 0
+        fi
+
+        local nomerged
+        nomerged=$(command git rev-list master..${hook_com[branch]} 2>/dev/null | wc -l | tr -d ' ')
+
+        if [[ "$nomerged" -gt 0 ]] ; then
+            # misc (%m) に追加
+            hook_com[misc]+="(m${nomerged})"
+        fi
+    }
+
+
+    # stash 件数表示
+    #
+    # stash している場合は :SN という形式で misc (%m) に表示
+    function +vi-git-stash-count() {
+        # zstyle formats, actionformats の2番目のメッセージのみ対象にする
+        if [[ "$1" != "1" ]]; then
+            return 0
+        fi
+
+        local stash
+        stash=$(command git stash list 2>/dev/null | wc -l | tr -d ' ')
+        if [[ "${stash}" -gt 0 ]]; then
+            # misc (%m) に追加
+            hook_com[misc]+=":S${stash}"
+        fi
+    }
+
+fi
+
+function _update_vcs_info_msg() {
+    local -a messages
+    local prompt
+
+    LANG=en_US.UTF-8 vcs_info
+
+    if [[ -z ${vcs_info_msg_0_} ]]; then
+        # vcs_info で何も取得していない場合はプロンプトを表示しない
+        prompt=""
+    else
+        # vcs_info で情報を取得した場合
+        # $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ を
+        # それぞれ緑、黄色、赤で表示する
+        [[ -n "$vcs_info_msg_0_" ]] && messages+=( "%F{green}${vcs_info_msg_0_}%f" )
+        [[ -n "$vcs_info_msg_1_" ]] && messages+=( "%F{yellow}${vcs_info_msg_1_}%f" )
+        [[ -n "$vcs_info_msg_2_" ]] && messages+=( "%F{red}${vcs_info_msg_2_}%f" )
+
+        # 間にスペースを入れて連結する
+        prompt="${(j: :)messages}"
+    fi
+
+    RPROMPT="$prompt"
+}
+add-zsh-hook precmd _update_vcs_info_msg
+
+## zaw.zsh
+source ~/Documents/Devel/dotfiles/zsh/functions/zaw/zaw.zsh
+## Ctrl -hで履歴起動。
+bindkey '^h' zaw-history
+## その他設定
+setopt hist_expand
+setopt inc_append_history
+setopt hist_no_store
+setopt hist_save_no_dups
+setopt hist_verify
+setopt hist_reduce_blanks 
+
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export PATH=$PATH:$HOME/.rvm/bin
+source ~/.rvm/scripts/rvm
+## END
+#
+# = ここからは私的zshメモ
+# == 通常ファイルのみの絞り込み
+# echo *(.)
+# == ディレクトリのみの絞り込み
+# echo *(/)
+# == シンボリックリンクのみ
+# echo *(@)
+# == 実行可能ファイルのみ
+# echo *(*)
+# == .で始まるファイルを含めて表示
+# echo *(D)
+# == .txtで終わるファイルのみ
+# echo *.txt(.)
+# == 条件のひっくり返し
+# echo *(^.)
+###-begin-npm-completion-###
+#
+# npm command completion script
+#
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+#
+
+COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
+COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
+export COMP_WORDBREAKS
+
+if type complete &>/dev/null; then
+  _npm_completion () {
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           npm completion -- "${COMP_WORDS[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -F _npm_completion npm
+elif type compdef &>/dev/null; then
+  _npm_completion() {
+    si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 npm completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+  _npm_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       npm completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _npm_completion npm
+fi
+###-end-npm-completion-###

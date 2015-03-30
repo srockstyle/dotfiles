@@ -1,5 +1,5 @@
 
-"#####表示設定#####
+"##表示設定#####
 set number "行番号を表示する
 set title "編集中のファイル名を表示
 set showmatch "括弧入力時の対応する括弧を表示
@@ -17,11 +17,11 @@ nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 map <C-j> !python -m json.tool<CR>
-
 "#### vundle
 set nocompatible               " be iMproved
+set backspace=2
 filetype off                   " required!
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 " let Vundle manage Vundle
 " required!
@@ -33,7 +33,6 @@ Bundle 'https://github.com/vim-scripts/AutoComplPop'
 Bundle 'https://github.com/vim-scripts/dbext.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'https://github.com/alpaca-tc/alpaca_tags'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-endwise'
@@ -50,11 +49,9 @@ Bundle 'https://github.com/Shougo/vimshell.git'
 Bundle 'http://github.com/tpope/vim-surround'
 Bundle 'https://github.com/Shougo/vimproc'
 Bundle 'Shougo/neosnippet'
-Bundle 'alpaca-tc/vim-endwise.git'
 Bundle 'Shougo/unite.vim'
 Bundle "https://github.com/Shougo/neocomplcache.vim"
 Bundle 'https://github.com/thinca/vim-ref'
-Bundle 'https://github.com/yuku-t/vim-ref-ri'
 Bundle 'https://github.com/vim-scripts/ruby-matchit'
 Bundle 'petdance/vim-perl'
 Bundle 'hotchpotch/perldoc-vim'
