@@ -9,6 +9,33 @@ set expandtab
 set shiftwidth=2
 set smartindent "オートインデント
 let g:unite_enable_start_insert=0
+"スワップファイル使わない
+set noswapfile
+" カーソルが何行目の何列目に置かれているかを表示する
+set ruler
+"エディタウィンドウの末尾から2行目にステータスラインを常時表示させる
+set laststatus=2
+"現在のGitブランチ
+set statusline+=%{fugitive#statusline()}
+"ファイルパス
+set title
+"コマンドラインでTabによるファイル名変換
+set wildmenu
+"入力中のコマンド
+set showcmd
+"小文字検索で大文字検索
+set smartcase
+" 検索結果をハイライト表示する
+set hlsearch
+"多分を空白文字に
+set expandtab
+" 検索ワードの最初の文字を入力した時点で検索を開始する
+set incsearch
+" タブと行の続きを可視化する
+set listchars=tab:>\ ,extends:<
+" 対応する括弧やブレースを表示する
+set showmatch
+
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
 nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
@@ -33,11 +60,13 @@ Bundle 'https://github.com/vim-scripts/AutoComplPop'
 Bundle 'https://github.com/vim-scripts/dbext.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'tomtom/tcomment_vim'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-endwise'
 Bundle 'tsukkee/unite-tag'
 Bundle 'https://github.com/scrooloose/syntastic'
+Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'alpaca-tc/neorspec.vim'
 Bundle 'taka84u9/vim-ref-ri'
 Bundle 'basyura/unite-rails'
@@ -124,18 +153,6 @@ let g:netrw_altv = 1
 " 'o'でファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
 let g:netrw_alto = 1
 set wildmode=list:full
-
-"Rails周りの設定
-"augroup AlpacaTags
-"  autocmd!
-"	if exists(':Tags')
-"		autocmd BufWritePost Gemfile TagsBundle
-"		autocmd BufEnter * TagsSet
-"		" 毎回保存と同時更新する場合はコメントを外す
-"		autocmd BufWritePost * TagsUpdate
-"	endif
-"augroup END
-
 
 "------------------------------------
 "" neosnippet
@@ -294,7 +311,14 @@ let s:switch_definition = {
       \   ['[ ]', '[x]']
       \ ]
       \ }
- 
+""""""""""""""""""""""""""""""
+" 自動的に閉じ括弧を入力
+""""""""""""""""""""""""""""""
+imap { {}<LEFT>
+imap [ []<LEFT>
+imap ( ()<LEFT>
+""""""""""""""""""""""""""""""
+
 let s:switch_definition = s:separate_defenition_to_each_filetypes(s:switch_definition)
 function! s:define_switch_mappings() "{{{
   if exists('b:switch_custom_definitions')
@@ -348,7 +372,7 @@ aug END
 "}}}
 "
 " Endwise
-let g:endwise_no_mappings=1
+"let g:endwise_no_mappings=1
 
 " netcomplace
 let g:neocomplcache_enable_at_startup = 1
@@ -431,39 +455,19 @@ autocmd BufWritePost *.php silent make | if len(getqflist()) != 1 | copen | else
 :map <C-e> <Esc>$a
 :map <C-a> <Esc>^a
 
-" Perlのための設定
-let g:neocomplcache_ctags_arguments_list = {
-  \ 'perl' : '-R -h ".pm"'
-  \ }
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default'    : '',
-    \ 'perl'       : $HOME . '/.vim/dict/perl.dict'
-    \ }
-if !exists('g:neocomplcache_keyword_patterns')
-				  let g:neocomplcache_keyword_patterns = {}
+"インデントの表示
+" " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
+let g:indent_guides_enable_on_vim_startup = 1
+""""""""""""""""""""""""""""""
+" 最後のカーソル位置を復元する
+""""""""""""""""""""""""""""""
+if has("autocmd")
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
 endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-nnoremap <silent> t :Unite tweetvim<CR>
-nnoremap <silent> s :TweetVimSay<CR>
-if !exists('g:neocomplcache_dictionary_filetype_lists')
-				  let g:neocomplcache_dictionary_filetype_lists = {}
-endif
-let neco_dic = g:neocomplcache_dictionary_filetype_lists
-let neco_dic.tweetvim_say = $HOME . '/.tweetvim/screen_name'
-
-"メモアプリ
-map <Leader>mn  :MemoNew<CR>
-map <Leader>ml  :MemoList<CR>
-map <Leader>mg  :MemoGrep<CR>
-let g:memolist_memo_suffix = "txt"
-let g:memolist_memo_date = "%Y-%m-%d %H:%M"
-let g:memolist_memo_date = "epoch"
-let g:memolist_memo_date = "%D %T"
-let g:memolist_unite        = 1
-let g:memolist_unite_source = "file_rec"
-let g:memolist_unite_option = "-start-insert"
-let g:memolist_path = "Dropbox/srockstyle/notes"
+""""""""""""""""""""""""""""""
 
 "HTML5の設定
 let g:html5_event_handler_attributes_complete = 0
