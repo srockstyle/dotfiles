@@ -13,4 +13,5 @@ PATH=`pwd`
 
 /bin/ln -s $PATH/zshrc/dot_zshrc ~/.zshrc 
 
-
+## font
+/bin/cp -f /usr/local/Cellar/ricty/3.2.3/share/fonts/Ricty*.ttf ~/Library/Fonts/
