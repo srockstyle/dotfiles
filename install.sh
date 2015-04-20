@@ -7,7 +7,7 @@ PATH=`pwd`
 /usr/local/bin/git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim 
 
 ## zshrc
-/bin/mkdir -p ~/.zshrc/functions
+/bin/mkdir -p ~/.zsh/functions
 /usr/local/bin/git clone git://github.com/zsh-users/zaw.git ~/.zsh/functions/zaw
 /usr/local/bin/git clone git://github.com/mollifier/cd-gitroot.git ~/.zsh/functions/cd-gitroot
 
