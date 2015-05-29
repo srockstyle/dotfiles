@@ -484,6 +484,11 @@ if has("autocmd")
 endif
 """"""""""""""""""""""""""""""
 
+if has('mac')
+  " let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/proc.so'
+  let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/vimproc_mac.so'
+endif
+
 "HTML5の設定
 let g:html5_event_handler_attributes_complete = 0
 let g:html5_rdfa_attributes_complete = 0
