@@ -5,7 +5,7 @@ PATH=`pwd`
 /bin/ln -s $PATH/vim/dot_vimrc ~/.vimrc 
 /bin/mkdir -p ~/.vim/bundle
 /usr/local/bin/git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim 
-
+/bin/mkdir -p ~/.vim/colors
 ## zshrc
 /bin/mkdir -p ~/.zsh/functions
 /usr/local/bin/git clone git://github.com/zsh-users/zaw.git ~/.zsh/functions/zaw
