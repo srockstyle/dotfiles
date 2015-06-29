@@ -1,4 +1,3 @@
-
 "##表示設定#####
 set number "行番号を表示する
 set title "編集中のファイル名を表示
@@ -7,7 +6,8 @@ syntax on "コードの色分け
 set tabstop=2 "インデントをスペース4つ分に設定
 set expandtab
 set shiftwidth=2
-set smartindent "オートインデント
+"オートインデント
+set smartindent 
 let g:unite_enable_start_insert=0
 "スワップファイル使わない
 set noswapfile
@@ -23,6 +23,10 @@ set title
 set wildmenu
 "入力中のコマンド
 set showcmd
+" deleteの有効か
+set backspace=indent,eol,start
+"vi互換をオフする
+set nocompatible
 "小文字検索で大文字検索
 set smartcase
 " 検索結果をハイライト表示する
@@ -35,175 +39,190 @@ set incsearch
 set listchars=tab:>\ ,extends:<
 " 対応する括弧やブレースを表示する
 set showmatch
-
-let g:unite_source_history_yank_enable =1
-let g:unite_source_file_mru_limit = 200
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
-map <C-j> !python -m json.tool<CR>
-"#### vundle
-set nocompatible               " be iMproved
-set backspace=2
-filetype off                   " required!
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
-" original repos on github
-Bundle 'https://github.com/rhysd/clever-f.vim'
-Bundle 'thinca/vim-quickrun'
-Bundle 'https://github.com/vim-scripts/AutoComplPop'
-Bundle 'https://github.com/vim-scripts/dbext.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-Bundle 'tpope/vim-endwise'
-Bundle 'tomasr/molokai'
-Bundle 'sjl/badwolf'
-Bundle 'w0ng/vim-hybrid'
-Bundle 'tsukkee/unite-tag'
-Bundle 'https://github.com/scrooloose/syntastic'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'alpaca-tc/neorspec.vim'
-Bundle 'taka84u9/vim-ref-ri'
-Bundle 'basyura/unite-rails'
-Bundle 'https://github.com/thoughtbot/vim-rspec'
-Bundle 'https://github.com/tpope/vim-dispatch'
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'edsono/vim-matchit'
-Bundle 'https://github.com/Shougo/vimshell.git'
-Bundle 'http://github.com/tpope/vim-surround'
-Bundle 'https://github.com/Shougo/vimproc'
-Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/unite.vim'
-Bundle "https://github.com/Shougo/neocomplcache.vim"
-Bundle 'https://github.com/thinca/vim-ref'
-Bundle 'https://github.com/vim-scripts/ruby-matchit'
-Bundle 'petdance/vim-perl'
-Bundle 'hotchpotch/perldoc-vim'
-Bundle 'https://github.com/othree/html5.vim.git'
-Bundle 'https://github.com/hail2u/vim-css3-syntax'
-Bundle 'https://github.com/hokaccha/vim-html5validator'
-Bundle 'digitaltoad/vim-jade'
-" Twitter Vim
-Bundle 'basyura/TweetVim'
-Bundle 'mattn/webapi-vim'
-Bundle 'basyura/twibill.vim'
-Bundle 'tyru/open-browser.vim'
-Bundle 'h1mesuke/unite-outline'
-Bundle 'basyura/bitly.vim'
-" EverNote
-Bundle "https://github.com/kakkyz81/evervim"
-Bundle 'glidenote/memolist.vim'
-
-"Bundle 'https://github.com/Shougo/neocomplcache-rsense.vim'
-" vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-" non github repos
-"Bundle 'git://git.wincent.com/command-t.git'
-filetype plugin indent on     " required!
-"
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
-
-"カラースキーム
-" colorscheme hybrid
-" highlight Normal ctermbg=none
-
-"#####検索設定#####
-set ignorecase "大文字/小文字の区別なく検索する
-set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
-set wrapscan "検索時に最後まで行ったら最初に戻る
-
-"新しい行のインデントを現在行と同じにする
-set autoindent
-"閉じ括弧が入力されたとき、対応する括弧を表示する
+" スワップファイル用のパス
+set directory=$HOME/.vim/backup
+"インクリメンタルサーチ
+set incsearch
+"かっこをいれたら対応するかっこを表示
 set showmatch
-"カーソルを行頭、行末で止まらないようにする
-set whichwrap=b,s,h,l,<,>,[,]
-"新しい行を作ったときに高度な自動インデントを行う
-"set smartindent
-"全角スペースを視覚化
-highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
-au BufNewFile,BufRead * match ZenkakuSpace /　/
-"" over.vim {{{
-" over.vimの起動
-nnoremap <silent> <Leader>m :OverCommandLine<CR>
+"新しい行を作った時に高度な自動インデントを行う
+set smarttab
+" grep検索を設定する
+set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
+set grepprg=grep\ -nh
+" vimのファイルタイプによる設定
+filetype plugin indent on
+" " 検索結果のハイライトをEsc連打でクリアする
+nnoremap <ESC><ESC> :nohlsearch<CR>
+" 全角スペースの表示
+function! ZenkakuSpace()
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse guifg=DarkGray
+endfunction
+if has('syntax')
+    augroup ZenkakuSpace
+        autocmd!
+        "ZenkakuSpace をカラーファイルで設定するなら、
+        "次の行をコメントアウト
+        autocmd ColorScheme       * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
 
-" カーソル下の単語をハイライト付きで置換
-nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 
-" コピーした文字列をハイライト付きで置換
-nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
+" スペース + oで新しいファイル
+nnoremap <Leader>o :CtrlP<CR>
+" スペース + wで新しいファイル
+nnoremap <Leader>w :w<CR>
+" スペース + pとyでコピーペースト
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
 
-" }}}
-" netrwは常にtree view
-let g:netrw_liststyle = 3
-" CVSと.で始まるファイルは表示しない
-let g:netrw_list_hide = 'CVS,\(^\|\s\s\)\zs\.\S\+'
-" 'v'でファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
-let g:netrw_altv = 1
-" 'o'でファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
-let g:netrw_alto = 1
-set wildmode=list:full
+"カーソルを表示行で移動する。物理行移動は<C-n>,<C-p>
+nnoremap j gj
+nnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up>   gk
+" カーソル移動をキーボードで
+"map <Up> <Nop>
+"map <Down> <Nop>
+"map <Left> <Nop>
+"map <Right> <Nop>
+"inoremap <Up> <Nop>
+"inoremap <Down> <Nop>
+"inoremap <Left> <Nop>
+"inoremap <Right> <Nop>
 
+" 行頭行末への移動
+:map! <C-e> <Esc>$a
+:map! <C-a> <Esc>^a
+:map <C-e> <Esc>$a
+:map <C-a> <Esc>^a
+
+"インサートモード中のカーソル関連
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+" 日本語設定
+"日本語の行の連結時には空白を入力しない。
+set formatoptions+=mM
+"□や○の文字があってもカーソル位置がずれないようにする。
+set ambiwidth=double
+"画面最後の行をできる限り表示する。
+set display+=lastline
+" ファイルエンコーディングの表示
+set laststatus=2
+set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\ 
+" Vundleを使うのに必要な設定
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+call vundle#end()            " required
+filetype plugin indent on    " required
+map <C-i> :PluginInstall<CR>
+" Vundleを使うのにインストールするモジュールリスト
+Plugin 'gmarik/Vundle.vim'
+Plugin 'terryma/vim-expand-region'
+Plugin 'tpope/vim-fugitive'
+Plugin 'L9'
+"Plugin 'git://git.wincent.com/command-t.git'
+" プラグインのインストール
+Plugin 'fuenor/JpFormat.vim'
+" Ruby / Rails関連
+Plugin 'alpaca-tc/alpaca_tags'
+Plugin 'tpope/vim-rails.git'
+Plugin 'AndrewRadev/switch.vim'
+Plugin 'Shougo/neosnippet'
+Plugin 'tpope/vim-endwise'
+Plugin 'Shougo/unite.vim'
+Plugin 'basyura/unite-rails'
+Plugin 'thinca/vim-ref'
+Plugin 'yuku-t/vim-ref-ri'
+" その他Web関連
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'JulesWang/css.vim' 
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'tpope/vim-haml'
+Plugin 'pangloss/vim-javascript'
+
+" 日本語関連の設定
+set runtimepath +=$HOME/.vim/bundle/JpFormat.vim
+set formatexpr=jpfmt#formatexpr()
+let jpfmt_paragraph_regexp = '^[　「]'
+" 原稿枚数カウント
+nnoremap <silent> g,rc :JpCountPages!<CR>
+map <C-f> :JpFormatAll<CR>
+map <C-c> :JpCountPages 20 20<CR>
+" 外部ビューアを起動する
+nnoremap <silent> <F8> :JpExtViewer<CR>
+au BufRead,BufNewFile  *.txt let JpFormatCursorMovedI = 1
+" txtファイルで「連結マーカー+改行」が有ったら自動整形を有効にする
+au BufRead,BufNewFile  *.txt  silent! call 
+" 原稿文字数(全角の折り返し文字数)
+au BufRead,BufNewFile *.txt let JpCountChars = 40
+" 原稿行数
+au BufRead,BufNewFile *.txt let JpCountLines = 17
+" 禁則処理の最大ぶら下がり字数(-1なら全てぶら下げ)
+au BufRead,BufNewFile *.txt let JpCountOverChars = 1
+
+" そのたキーバインド
+map <esc>p :set paste<CR>
+map <esc>n :set nopaste<CR>
+nnoremap [unite]    <Nop>
+nmap <C-u> :Unite 
+
+" 画面分割
+map <C-w>v :vs<CR>
+map <C-w>s :sp<CR>
+
+"終了、保存周り
+map <C-q>w :wq!<CR>
+map <C-q> :q<CR>
+
+" Rails関連設定
 "------------------------------------
-"" neosnippet
+" Alpaca
 "------------------------------------
-let g:neosnippet#snippets_directory='~/.vim/vim-snippets'
+augroup AlpacaTags
+  autocmd!
+  if exists(':Tags')
+    autocmd BufWritePost Gemfile TagsBundle
+    autocmd BufEnter * TagsSet
+    " 毎回保存と同時更新する場合はコメントを外す
+    " autocmd BufWritePost * TagsUpdate
+  endif
+augroup END
+"------------------------------------
+" neosnippet
+"------------------------------------
+"" neosnippet "{{{
+ 
+" snippetを保存するディレクトリを設定してください
+" " example
+" " let s:default_snippet = neobundle#get_neobundle_dir() .
+" '/neosnippet/autoload/neosnippet/snippets' " 本体に入っているsnippet
+" " let s:my_snippet = '~/snippet' " 自分のsnippet
+" " let g:neosnippet#snippets_directory = s:my_snippet
+" " let g:neosnippet#snippets_directory = s:default_snippet . ',' .
+" s:my_snippet
 imap <silent><C-F>                <Plug>(neosnippet_expand_or_jump)
 inoremap <silent><C-U>            <ESC>:<C-U>Unite snippet<CR>
 nnoremap <silent><Space>e         :<C-U>NeoSnippetEdit -split<CR>
-smap <silent><C-F>                <Plug>(neosnippet_expand_or_jump
+smap <silent><C-F>                <Plug>(neosnippet_expand_or_jump)
+" " xmap <silent>o
+" <Plug>(neosnippet_register_oneshot_snippet)
+" "}}}
 
-
-"------------------------------------
-" vim-rails
-"------------------------------------
-""{{{
-"有効化
-let g:rails_default_file='config/database.yml'
-let g:rails_level = 4
-let g:rails_mappings=1
-let g:rails_modelines=0
-" let g:rails_some_option = 1
-" let g:rails_statusline = 1
-" let g:rails_subversion=0
-" let g:rails_syntax = 1
-" let g:rails_url='http://localhost:3000'
-" let g:rails_ctags_arguments='--languages=-javascript'
-" let g:rails_ctags_arguments = ''
-function! SetUpRailsSetting()
-  nnoremap <buffer><Space>r :R<CR>
-  nnoremap <buffer><Space>a :A<CR>
-  nnoremap <buffer><Space>m :Rmodel<Space>
-  nnoremap <buffer><Space>c :Rcontroller<Space>
-  nnoremap <buffer><Space>v :Rview<Space>
-  nnoremap <buffer><Space>p :Rpreview<CR>
-endfunction
- 
-aug MyAutoCmd
-  au User Rails call SetUpRailsSetting()
-aug END
- 
-aug RailsDictSetting
-  au!
-aug END
-"}}}
-
+"-----------------------------------
+" switch vim
+"-----------------------------------
 function! s:separate_defenition_to_each_filetypes(ft_dictionary) "{{{
   let result = {}
  
@@ -219,6 +238,10 @@ function! s:separate_defenition_to_each_filetypes(ft_dictionary) "{{{
  
   return result
 endfunction"}}}
+ 
+" ------------------------------------
+" switch.vim
+" ------------------------------------
 nnoremap ! :Switch<CR>
 let s:switch_definition = {
       \ '*': [
@@ -317,14 +340,7 @@ let s:switch_definition = {
       \   ['[ ]', '[x]']
       \ ]
       \ }
-""""""""""""""""""""""""""""""
-" 自動的に閉じ括弧を入力
-""""""""""""""""""""""""""""""
-imap { {}<LEFT>
-imap [ []<LEFT>
-imap ( ()<LEFT>
-""""""""""""""""""""""""""""""
-
+ 
 let s:switch_definition = s:separate_defenition_to_each_filetypes(s:switch_definition)
 function! s:define_switch_mappings() "{{{
   if exists('b:switch_custom_definitions')
@@ -346,6 +362,9 @@ function! s:define_switch_mappings() "{{{
     let dictionary = extend(dictionary, s:switch_definition['*'])
   endif
  
+  "if !empty('dictionary')
+   " call alpaca#let_b:('switch_custom_definitions', dictionary)
+  "endif
 endfunction"}}}
  
 augroup SwitchSetting
@@ -353,14 +372,15 @@ augroup SwitchSetting
   autocmd Filetype * if !empty(split(&ft, '\.')) | call <SID>define_switch_mappings() | endif
 augroup END
 
+
 "------------------------------------
 " Unite-rails.vim
 "------------------------------------
 "{{{
 function! UniteRailsSetting()
-  nnoremap <buffer><C-H><C-H><C-H>  :<C-U>Unite rails/view<CR>
-  nnoremap <buffer><C-H><C-H>       :<C-U>Unite rails/model<CR>
-  nnoremap <buffer><C-H>            :<C-U>Unite rails/controller<CR>
+  nnoremap <buffer><C-u><C-v>  :<C-U>Unite rails/view<CR>
+  nnoremap <buffer><C-u><C-m>       :<C-U>Unite rails/model<CR>
+  nnoremap <buffer><C-u><C-c>            :<C-U>Unite rails/controller<CR>
  
   nnoremap <buffer><C-H>c           :<C-U>Unite rails/config<CR>
   nnoremap <buffer><C-H>s           :<C-U>Unite rails/spec<CR>
@@ -376,103 +396,20 @@ aug MyAutoCmd
   au User Rails call UniteRailsSetting()
 aug END
 "}}}
-"
-" Endwise
-"let g:endwise_no_mappings=1
+"------------------------------------
+" endwise.vim
+"------------------------------------
+"{{{
+let g:endwise_no_mappings=1
+"}}}
 
-" netcomplace
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_max_list = 20
-let g:neocomplcache_manual_completion_start_length = 3
-let g:neocomplcache_enable_ignore_case = 1
-let g:neocomplcache_enable_smart_case = 1
-if !exists('g:neocomplcache_delimiter_patterns')
-	let g:neocomplcache_delimiter_patterns = {}
-endif
+ 
+"------------------------------------
+" CSS周りの設定
+"------------------------------------
+au BufRead,BufNewFile *.scss set filetype=scss.css
 
-" vimの補完箇所
-hi Pmenu ctermbg=0
-hi PmenuSel ctermbg=4
-hi PmenuSbar ctermbg=2
-hi PmenuThumb ctermfg=3
 
-if !exists('loaded_matchit')
-	" matchitを有効化
-	runtime macros/matchit.vim
-endif
-
-let dbext_default_profile=""
-let dbext_default_type="MYSQL"
-let dbext_default_user="root"
-let dbext_default_passwd=""
-let dbext_default_dbname=""
-let dbext_default_host="localhost"
-let dbext_default_buffer_lines=60
-
-" JavaScriptのシンタックスチェック// いったん外す。
-let g:syntastic_mode_map = {
-  \ 'mode': 'active',
-  \ 'active_filetypes': ['javascript'],
-  \ 'passive_filetypes': ['html']
-  \}
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_enable_signs = 1
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
-
-"アルパカタグ
-let g:alpaca_update_tags_config = {
-      \ '_' : '-R --sort=yes --languages=-js,html,css',
-      \ 'ruby': '--languages=+Ruby',
-      \ }
-let g:alpaca_tags_ctags_bin = '/usr/local/Cellar/ctags/5.8/bin/ctags'
-let g:alpaca_tags_cache_directory = "~/.vim/alpaca_tags"
-let g:unite_data_directory = "~/vim/unite_data"
-augroup AlpacaTags
-		autocmd!
-		if exists(':Tags')
-		autocmd BufWritePost * TagsUpdate ruby
-		autocmd BufWritePost Gemfile TagsBundle
-		autocmd BufEnter * TagsSet
-		endif
-augroup END
-nnoremap <expr>tt  ':Unite tags -horizontal -buffer-name=tags -input='.expand("<cword>").'<CR>'
-
-" RSPEC自動実行
-let g:quickrun_config = {}
-let g:quickrun_config['ruby.rspec'] = { 'command': 'rspec', 'cmdopt': 'bundle exec', 'exec': '%o %c %s' }
-augroup RSpec
-		autocmd!
-		autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=ruby.rspec
-augroup END
-
-let g:rspec_command = "Dispatch rspec {spec}"
-
-" PHP用の設定
-autocmd FileType php,ctp :set dictionary="~/.vim/dict/php.dict"
-autocmd FileType css :set dictionary="~/.vim/dict/css.dict"
-autocmd FileType c :set dictionary="~/.vim/dict/c.dict"
-autocmd FileType js :set dictionary="~/.vim/dict/javascript.dict"
-autocmd FileType rb :set dictionary="~/.vim/dict/ruby.dict"
-
-highlight Pmenu ctermbg=4
-highlight PmenuSel ctermbg=1
-highlight PMenuSbar ctermbg=4
-" シンタックスエラーチェック
-autocmd FileType php set makeprg=php\ -l\ %
-autocmd BufWritePost *.php silent make | if len(getqflist()) != 1 | copen | else | cclose | endif 
-
-" 行頭行末への移動
-:map! <C-e> <Esc>$a
-:map! <C-a> <Esc>^a
-
-:map <C-e> <Esc>$a
-:map <C-a> <Esc>^a
-
-"インデントの表示
-" " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
-let g:indent_guides_enable_on_vim_startup = 1
 """"""""""""""""""""""""""""""
 " 最後のカーソル位置を復元する
 """"""""""""""""""""""""""""""
@@ -484,13 +421,15 @@ if has("autocmd")
 endif
 """"""""""""""""""""""""""""""
 
-if has('mac')
-  " let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/proc.so'
-  let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/vimproc_mac.so'
-endif
+""""""""""""""""""""""""""""""
+" 自動的に閉じ括弧を入力
+""""""""""""""""""""""""""""""
+imap { {}<LEFT>
+imap [ []<LEFT>
+imap ( ()<LEFT>
+imap 「「」<LEFT>
+""""""""""""""""""""""""""""""
 
-"HTML5の設定
-let g:html5_event_handler_attributes_complete = 0
-let g:html5_rdfa_attributes_complete = 0
-let g:html5_microdata_attributes_complete = 0
-colorscheme molokai
+let s:switch_definition = s:separate_defenition_to_each_filetypes(s:switch_definition)
+function! s:define_switch_mappings() "{{{
+
