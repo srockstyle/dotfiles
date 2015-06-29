@@ -427,9 +427,6 @@ endif
 imap { {}<LEFT>
 imap [ []<LEFT>
 imap ( ()<LEFT>
-imap 「「」<LEFT>
+"imap 「「」<LEFT>
 """"""""""""""""""""""""""""""
-
-let s:switch_definition = s:separate_defenition_to_each_filetypes(s:switch_definition)
-function! s:define_switch_mappings() "{{{
 
