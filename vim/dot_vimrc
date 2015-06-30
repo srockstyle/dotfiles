@@ -151,7 +151,7 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'tpope/vim-haml'
 Plugin 'pangloss/vim-javascript'
-
+Plugin 'Shougo/vimfiler.vim'
 " 日本語関連の設定
 set runtimepath +=$HOME/.vim/bundle/JpFormat.vim
 set formatexpr=jpfmt#formatexpr()
@@ -430,3 +430,5 @@ imap ( ()<LEFT>
 "imap 「「」<LEFT>
 """"""""""""""""""""""""""""""
 
+" 行頭から前行の行末への移動
+set whichwrap=b,s,h,l,<,>,[,]
