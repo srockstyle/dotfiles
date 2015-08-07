@@ -7,7 +7,9 @@ set tabstop=2 "インデントをスペース4つ分に設定
 set expandtab
 set shiftwidth=2
 "オートインデント
-set smartindent 
+" 保存時に行末の空白を除去する
+ autocmd BufWritePre * :%s/\s\+$//ge
+set smartindent
 let g:unite_enable_start_insert=0
 "スワップファイル使わない
 set noswapfile
@@ -50,6 +52,13 @@ set smarttab
 " grep検索を設定する
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
+
+call pathogen#infect()
+
+syntax enable
+filetype plugin indent on
+
+
 " vimのファイルタイプによる設定
 filetype plugin indent on
 " " 検索結果のハイライトをEsc連打でクリアする
@@ -117,7 +126,7 @@ set ambiwidth=double
 set display+=lastline
 " ファイルエンコーディングの表示
 set laststatus=2
-set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\ 
+set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\
 " Vundleを使うのに必要な設定
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -132,6 +141,10 @@ Plugin 'terryma/vim-expand-region'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 "Plugin 'git://git.wincent.com/command-t.git'
+"JS
+Plugin 'jiangmiao/simple-javascript-indenter'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'jelera/vim-javascript-syntax'
 " プラグインのインストール
 Plugin 'fuenor/JpFormat.vim'
 " Ruby / Rails関連
@@ -146,12 +159,15 @@ Plugin 'thinca/vim-ref'
 Plugin 'yuku-t/vim-ref-ri'
 " その他Web関連
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'JulesWang/css.vim' 
+Plugin 'JulesWang/css.vim'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'hail2u/vim-css3-syntax'
-Plugin 'tpope/vim-haml'
 Plugin 'pangloss/vim-javascript'
 Plugin 'Shougo/vimfiler.vim'
+Plugin 'tomtom/tcomment_vim'
+"Plugin 'timheap/linters.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'slim-template/vim-slim'
 " 日本語関連の設定
 set runtimepath +=$HOME/.vim/bundle/JpFormat.vim
 set formatexpr=jpfmt#formatexpr()
@@ -164,7 +180,7 @@ map <C-c> :JpCountPages 20 20<CR>
 nnoremap <silent> <F8> :JpExtViewer<CR>
 au BufRead,BufNewFile  *.txt let JpFormatCursorMovedI = 1
 " txtファイルで「連結マーカー+改行」が有ったら自動整形を有効にする
-au BufRead,BufNewFile  *.txt  silent! call 
+au BufRead,BufNewFile  *.txt  silent! call
 " 原稿文字数(全角の折り返し文字数)
 au BufRead,BufNewFile *.txt let JpCountChars = 40
 " 原稿行数
@@ -176,7 +192,7 @@ au BufRead,BufNewFile *.txt let JpCountOverChars = 1
 map <esc>p :set paste<CR>
 map <esc>n :set nopaste<CR>
 nnoremap [unite]    <Nop>
-nmap <C-u> :Unite 
+nmap <C-u> :Unite
 
 " 画面分割
 map <C-w>v :vs<CR>
@@ -203,7 +219,7 @@ augroup END
 " neosnippet
 "------------------------------------
 "" neosnippet "{{{
- 
+
 " snippetを保存するディレクトリを設定してください
 " " example
 " " let s:default_snippet = neobundle#get_neobundle_dir() .
@@ -225,20 +241,20 @@ smap <silent><C-F>                <Plug>(neosnippet_expand_or_jump)
 "-----------------------------------
 function! s:separate_defenition_to_each_filetypes(ft_dictionary) "{{{
   let result = {}
- 
+
   for [filetypes, value] in items(a:ft_dictionary)
     for ft in split(filetypes, ",")
       if !has_key(result, ft)
         let result[ft] = []
       endif
- 
+
       call extend(result[ft], copy(value))
     endfor
   endfor
- 
+
   return result
 endfunction"}}}
- 
+
 " ------------------------------------
 " switch.vim
 " ------------------------------------
@@ -340,33 +356,33 @@ let s:switch_definition = {
       \   ['[ ]', '[x]']
       \ ]
       \ }
- 
+
 let s:switch_definition = s:separate_defenition_to_each_filetypes(s:switch_definition)
 function! s:define_switch_mappings() "{{{
   if exists('b:switch_custom_definitions')
     unlet b:switch_custom_definitions
   endif
- 
+
   let dictionary = []
   for filetype in split(&ft, '\.')
     if has_key(s:switch_definition, filetype)
       let dictionary = extend(dictionary, s:switch_definition[filetype])
     endif
   endfor
- 
+
   if exists('b:rails_root')
     let dictionary = extend(dictionary, s:switch_definition['rails'])
   endif
- 
+
   if has_key(s:switch_definition, '*')
     let dictionary = extend(dictionary, s:switch_definition['*'])
   endif
- 
+
   "if !empty('dictionary')
    " call alpaca#let_b:('switch_custom_definitions', dictionary)
   "endif
 endfunction"}}}
- 
+
 augroup SwitchSetting
   autocmd!
   autocmd Filetype * if !empty(split(&ft, '\.')) | call <SID>define_switch_mappings() | endif
@@ -381,7 +397,7 @@ function! UniteRailsSetting()
   nnoremap <buffer><C-u><C-v>  :<C-U>Unite rails/view<CR>
   nnoremap <buffer><C-u><C-m>       :<C-U>Unite rails/model<CR>
   nnoremap <buffer><C-u><C-c>            :<C-U>Unite rails/controller<CR>
- 
+
   nnoremap <buffer><C-H>c           :<C-U>Unite rails/config<CR>
   nnoremap <buffer><C-H>s           :<C-U>Unite rails/spec<CR>
   nnoremap <buffer><C-H>m           :<C-U>Unite rails/db -input=migrate<CR>
@@ -403,7 +419,7 @@ aug END
 let g:endwise_no_mappings=1
 "}}}
 
- 
+
 "------------------------------------
 " CSS周りの設定
 "------------------------------------
@@ -432,3 +448,33 @@ imap ( ()<LEFT>
 
 " 行頭から前行の行末への移動
 set whichwrap=b,s,h,l,<,>,[,]
+
+"----------------------------
+" 静的テスト開始
+"--------------- -------------
+" let g:syntastic_mode_map = { 'mode': 'passive',
+"             \ 'active_filetypes': ['ruby'] }
+" let g:syntastic_ruby_checkers = ['rubocop']
+" map <C-s> :SyntasticCheck<CR>
+
+"---------------------------
+" JS
+"---------------------------
+" vimにcoffeeファイルタイプを認識させる
+
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+" インデント設定
+autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
+" オートコンパイル
+  "保存と同時にコンパイルする
+autocmd BufWritePost *.coffee silent make!
+  "エラーがあったら別ウィンドウで表示
+autocmd QuickFixCmdPost * nested cwindow | redraw!
+" Ctrl-cで右ウィンドウにコンパイル結果を一時表示する
+nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
+" この設定入れるとswitchのインデントがいくらかマシに
+let g:SimpleJsIndenter_CaseIndentLevel = -1
+autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_underscore = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_backbone = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 1

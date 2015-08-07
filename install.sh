@@ -1,4 +1,16 @@
 #!/bin/bash 
+## homebrew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+## rvm
+curl -sSL https://get.rvm.io | bash -s stable
+
+## brewでいれるやつ
+brew install git 
+brew install zsh
+brew install vim
+brew install mysql
+brew install node
 
 ## vimrc
 PATH=`pwd`
@@ -15,4 +27,7 @@ PATH=`pwd`
 /bin/ln -s $PATH/zshrc/dot_zshrc ~/.zshrc 
 
 ## font
-/bin/cp -f /usr/local/Cellar/ricty/3.2.3/share/fonts/Ricty*.ttf ~/Library/Fonts/
+brew tap sanemat/font
+brew install Caskroom/cask/xquartz
+brew install ricty
+/bin/cp -f /usr/local/Cellar/ricty/3.2.4/share/fonts/Ricty*.ttf ~/Library/Fonts/
