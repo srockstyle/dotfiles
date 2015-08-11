@@ -145,8 +145,10 @@ Plugin 'L9'
 Plugin 'jiangmiao/simple-javascript-indenter'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'jelera/vim-javascript-syntax'
+Plugin 'Shougo/neocomplcache'
 " プラグインのインストール
 Plugin 'fuenor/JpFormat.vim'
+Plugin 'honza/vim-snippets'
 " Ruby / Rails関連
 Plugin 'alpaca-tc/alpaca_tags'
 Plugin 'tpope/vim-rails.git'
@@ -155,10 +157,10 @@ Plugin 'Shougo/neosnippet'
 Plugin 'tpope/vim-endwise'
 Plugin 'Shougo/unite.vim'
 Plugin 'basyura/unite-rails'
+Plugin 'kchmck/vim-coffee-script'
 Plugin 'thinca/vim-ref'
 Plugin 'yuku-t/vim-ref-ri'
 " その他Web関連
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'JulesWang/css.vim'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'hail2u/vim-css3-syntax'
@@ -220,14 +222,8 @@ augroup END
 "------------------------------------
 "" neosnippet "{{{
 
-" snippetを保存するディレクトリを設定してください
-" " example
-" " let s:default_snippet = neobundle#get_neobundle_dir() .
-" '/neosnippet/autoload/neosnippet/snippets' " 本体に入っているsnippet
-" " let s:my_snippet = '~/snippet' " 自分のsnippet
-" " let g:neosnippet#snippets_directory = s:my_snippet
-" " let g:neosnippet#snippets_directory = s:default_snippet . ',' .
-" s:my_snippet
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+let s:my_snippet = '~/.vim/vim-snippets' " 自分のsnippet
 imap <silent><C-F>                <Plug>(neosnippet_expand_or_jump)
 inoremap <silent><C-U>            <ESC>:<C-U>Unite snippet<CR>
 nnoremap <silent><Space>e         :<C-U>NeoSnippetEdit -split<CR>
@@ -235,7 +231,8 @@ smap <silent><C-F>                <Plug>(neosnippet_expand_or_jump)
 " " xmap <silent>o
 " <Plug>(neosnippet_register_oneshot_snippet)
 " "}}}
-
+imap ,,     <Plug>(neosnippet_expand_or_jump)
+smap ,,     <Plug>(neosnippet_expand_or_jump)
 "-----------------------------------
 " switch vim
 "-----------------------------------
@@ -281,7 +278,7 @@ let s:switch_definition = {
       \   ['lib', 'initializer', 'file', 'vendor', 'rakefile'],
       \   ['controller', 'model', 'view', 'migration', 'scaffold'],
       \ ],
-      \ 'erb,html,php' : [
+      \ 'erb,html,php,tag' : [
       \   { '<!--\([a-zA-Z0-9 /]\+\)--></\(div\|ul\|li\|a\)>' : '</\2><!--\1-->' },
       \ ],
       \ 'rails' : [
@@ -416,7 +413,7 @@ aug END
 " endwise.vim
 "------------------------------------
 "{{{
-let g:endwise_no_mappings=1
+" let g:endwise_no_mappings=1
 "}}}
 
 
@@ -478,3 +475,39 @@ autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
 autocmd BufReadPre *.js let b:javascript_lib_use_underscore = 1
 autocmd BufReadPre *.js let b:javascript_lib_use_backbone = 1
 autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 1
+
+"--------------------------
+" NeoComplete
+"" neocomplcache
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : ''
+    \ }
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
