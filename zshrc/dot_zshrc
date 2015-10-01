@@ -46,7 +46,7 @@ kterm*|xterm)
         echo -ne "\033]0;${USER}@${HOST}\007"
     }
     ;;
-esac 
+esac
 
 ## 補完機能
 autoload -U compinit -u
@@ -115,9 +115,9 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 
 ## sshのホスト名補完
 autoload -U compinit -u  && compinit -u
-function print_known_hosts (){ 
+function print_known_hosts (){
   if [ -f $HOME/.ssh/known_hosts ]; then
-    cat $HOME/.ssh/known_hosts | tr ',' ' ' | cut -d' ' -f1 
+    cat $HOME/.ssh/known_hosts | tr ',' ' ' | cut -d' ' -f1
   fi
 }
 _cache_hosts=($( print_known_hosts ))
@@ -367,7 +367,7 @@ setopt inc_append_history
 setopt hist_no_store
 setopt hist_save_no_dups
 setopt hist_verify
-setopt hist_reduce_blanks 
+setopt hist_reduce_blanks
 
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/opt/go/libexec
@@ -444,7 +444,7 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-PATH=$PATH:$HOME/.rvm/bin 
+PATH=$PATH:$HOME/.rvm/bin:/usr/local/bin
 ###  Google Cloud Platfom
 # The next line updates PATH for the Google Cloud SDK.
 # source '/Users/s-kobayashisupercrowdsco/google-cloud-sdk/path.zsh.inc'
