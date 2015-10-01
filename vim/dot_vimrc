@@ -149,6 +149,7 @@ Plugin 'Shougo/neocomplcache'
 " プラグインのインストール
 Plugin 'fuenor/JpFormat.vim'
 Plugin 'honza/vim-snippets'
+Plugin 'thinca/vim-qfreplace'
 " Ruby / Rails関連
 Plugin 'alpaca-tc/alpaca_tags'
 Plugin 'tpope/vim-rails.git'
@@ -161,6 +162,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'thinca/vim-ref'
 Plugin 'yuku-t/vim-ref-ri'
 " その他Web関連
+Plugin 'nicklasos/vim-jsx-riot'
 Plugin 'JulesWang/css.vim'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'hail2u/vim-css3-syntax'
@@ -514,3 +516,4 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 "htmlファイルとして認識
 au BufNewFile,BufRead *.tag setf html
+" au BufNewFile,BufRead *.tag setlocal ft=javascript
