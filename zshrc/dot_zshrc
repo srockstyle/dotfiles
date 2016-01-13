@@ -357,6 +357,8 @@ function _update_vcs_info_msg() {
 }
 add-zsh-hook precmd _update_vcs_info_msg
 
+## rc以下は問答無用の読み込み
+source ~/.zsh/rc/*
 ## zaw.zsh
 source ~/.zsh/functions/zaw/zaw.zsh
 ## Ctrl -hで履歴起動。

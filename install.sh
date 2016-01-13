@@ -29,6 +29,8 @@ if [ $? -ne 0 ]; then
   /usr/local/bin/git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   /bin/mkdir -p ~/.vim/colors
   /bin/mkdir -p ~/.vim/vim-snippets
+  ## infect
+  mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 fi
 
 ## zshrc
@@ -44,4 +46,15 @@ fi
 /usr/local/bin/brew tap sanemat/font
 /usr/local/bin/brew install Caskroom/cask/xquartz
 /usr/local/bin/brew install ricty
-/bin/cp -f /usr/local/Cellar/ricty/3.2.4/share/fonts/Ricty*.ttf ~/Library/Fonts/
+/bin/cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
+fc-cache -vf
+
+## cask
+/usr/local/bin/brew tap caskroom/cask
+
+/usr/local/bin/brew install trash
+echo 'alias rm="trash"' >> ~/.zshrc
+/usr/local/bin/brew install wget
+/usr/local/bin/brew install htop
+/usr/local/bin/brew install nkf
+
