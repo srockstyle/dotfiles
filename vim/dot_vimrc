@@ -154,7 +154,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'thinca/vim-qfreplace'
 " Ruby / Rails関連
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'alpaca-tc/alpaca_tags'
+" Plugin 'alpaca-tc/alpaca_tags'
 Plugin 'tpope/vim-rails.git'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'Shougo/neosnippet'

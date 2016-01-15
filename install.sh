@@ -23,8 +23,8 @@ fi
 ## vimrc
 VIMARC_ST=`ls ~/.vimrc`
 if [ $? -ne 0 ]; then
-  PATH=`pwd`
-  /bin/ln -s $PATH/vim/dot_vimrc ~/.vimrc
+  CURRENT_PATH=`pwd`
+  /bin/ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
   /bin/mkdir -p ~/.vim/bundle
   /usr/local/bin/git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   /bin/mkdir -p ~/.vim/colors
@@ -34,10 +34,11 @@ fi
 ## zshrc
 VIMARC_ST=`ls ~/.zshrc`
 if [ $? -ne 0 ]; then
+  CURRENT_PATH=`pwd`
   /bin/mkdir -p ~/.zsh/functions
   /usr/local/bin/git clone git://github.com/zsh-users/zaw.git ~/.zsh/functions/zaw
   /usr/local/bin/git clone git://github.com/mollifier/cd-gitroot.git ~/.zsh/functions/cd-gitroot
-  /bin/ln -s $PATH/zshrc/dot_zshrc ~/.zshrc
+  /bin/ln -s $CURRENT_PATH/zshrc/dot_zshrc ~/.zshrc
 fi
 
 ## font
