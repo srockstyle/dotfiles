@@ -1,12 +1,12 @@
 ## UTF-8と日本語
 export LANG=ja_JP.UTF-8
 
-#autoload colors
-#colors
+autoload colors
+colors
 
 ## 通常のプロンプト
 PROMPT="%{${fg[yellow]}%}%~%{${reset_color}%}
-%n%% "
+%K{green}%n%k %% "
 
 ## forやwhile/複数行入力時などに表示されるプロンプト
 PROMPT2="%_%% "
@@ -20,6 +20,9 @@ SPROMPT="%r is correct? [n,y,a,e]: "
 
 ## zcompletionsの設定。setup.shを実行しておくこと。
 fpath=(/usr/local/share/zsh-completions $fpath)
+
+## デフォルトで使うエディタ
+export EDITOR=vi
 
 ## ヒストリー
 HISTFILE=~/.zsh_history
@@ -38,6 +41,10 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
+## 補完で大文字も小文字も
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+
 ## ターミナルのホスト名
 
 case "${TERM}" in
@@ -51,7 +58,13 @@ esac
 ## 補完機能
 autoload -U compinit -u
 zstyle ':completion:*' list-colors ''
-
+# --/pro とかのあとも補完
+setopt magic_equal_subst
+setopt complete_in_word # 単語の途中でもカーソル一で補完
+setopt always_last_prompt #カーソル位置はそのままカーソル位置で補完
+setopt globdots # .ファイルでも.なしでマッチできる
+setopt list_packed # リストを詰めて表示
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 ## ディレクトリ名だけで移動
 setopt auto_cd
 
@@ -99,13 +112,40 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # >>>>>>> 320d85c741da212174e4f5737e48673281a4b6b6
 alias lf="ls -F"
 alias ll="ls -l"
+alias ls="ls -Gl"
 alias du="du -h"
 alias df="df -h"
 alias vi="/usr/local/bin/vim"
+# export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
+# cdr, add-zsh-hook を有効にする
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
+ # cdr の設定
+ zstyle ':completion:*' recent-dirs-insert both
+ zstyle ':chpwd:*' recent-dirs-max 500
+ zstyle ':chpwd:*' recent-dirs-default true
+ zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/shell/chpwd-recent-dirs"
+ zstyle ':chpwd:*' recent-dirs-pushd true
+
+
+# ディレクトリが青だとめんど
+# export LSCOLORS=xbfxcxdxbxegedabagacad
+# LS_COLORSを設定しておく
+export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
+#
+export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
+
+# export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+#
+# # ファイル補完候補に色を付ける
+zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 # # 2つ上、3つ上にも移動できるようにする
 alias ...='cd ../..'
 alias ....='cd ../../..'
+
+
 
 ## git-cdrootの設定
 # $ cdu
@@ -447,14 +487,16 @@ elif type compctl &>/dev/null; then
   }
   compctl -K _npm_completion npm
 fi
+
+## Rvm
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 VAGRANTMEM=256
 PATH=$PATH:$HOME/.rvm/bin:/usr/local/bin
-###  Google Cloud Platfom
-# The next line updates PATH for the Google Cloud SDK.
-# source '/Users/s-kobayashisupercrowdsco/google-cloud-sdk/path.zsh.inc'
-#
-# # The next line enables bash completion for gcloud.
-# source '/Users/s-kobayashisupercrowdsco/google-cloud-sdk/completion.zsh.inc'
 
-###-end-npm-completion-###
+alias safari="open -a Safari"
+alias itunes="open -a iTunes"
+alias prev="open -a Preview"
+alias evernote="open -a Evernote"
+alias clipstudio="open -a 'CLIP STUDIO PAINT'"
+alias quicktimeplayer="open -a 'QuickTime Player'"
+
