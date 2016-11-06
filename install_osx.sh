@@ -62,52 +62,52 @@ brew install which
 brew install rsense
 ruby /usr/local/Cellar/rsense/*/libexec/etc/config.rb > ~/.rsense
 brew install tree
-brew install imagemagick
-brew install q
-
-brew install homebrew/completions/vagrant-completion
-brew install kitchen-completion
-brew install ruby-completion
-brew install gem-completion
-brew install bundler-completion
-brew install rake-completion
-brew install rails-completion
-brew install grunt-completion
-brew install django-completion
-brew install pip-completion
+# brew install imagemagick
+# brew install q
+# brew install homebrew/completions/vagrant-completion
+# brew install kitchen-completion
+# brew install ruby-completion
+# brew install gem-completion
+# brew install bundler-completion
+# brew install rake-completion
+# brew install rails-completion
+# brew install grunt-completion
+# brew install django-completion
+# brew install pip-completion
 
 ## 開発環境
 brew cask install virtualbox
 brew cask install vagrant
-vagrant plugin install sahara
-vagrant plugin install vagrant-cachier
-vagrant plugin install vagrant-global-status
-vagrant plugin install vagrant-omnibus
-vagrant plugin install vagrant-vbguest
-vagrant plugin install vagrant-berkshelf
-vagrant plugin install vagrant-hostmanager
-vagrant plugin install vagrant-aws
-vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
+# vagrant plugin install sahara
+# vagrant plugin install vagrant-cachier
+# vagrant plugin install vagrant-global-status
+# vagrant plugin install vagrant-omnibus
+# vagrant plugin install vagrant-vbguest
+# vagrant plugin install vagrant-berkshelf
+# vagrant plugin install vagrant-hostmanager
+# vagrant plugin install vagrant-aws
+# vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
 brew cask install chefdk
 brew cask install atom
 
 ## r
-brew cask install r
-brew cask install rstudio
-
-## 電子書籍
-brew cask install kindle
-brew cask install kindle-previewer # epub -> mobi変換
-brew cask install calibre
-
-## Android（あれば
-brew cask install android-studio
-brew cask install caffeine
-
-# flash player(safari)
-brew cask install flash
-
+# brew cask install r
+# brew cask install rstudio
+#
+# ## 電子書籍
+# brew cask install kindle
+# brew cask install kindle-previewer # epub -> mobi変換
+# brew cask install calibre
+#
+# ## Android（あれば
+# brew cask install android-studio
+# brew cask install caffeine
+#
+# # flash player(safari)
+# brew cask install flash
+#
 # evernote
+
 brew cask install evernote
 brew cask install skitch
 
