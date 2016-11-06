@@ -17,8 +17,8 @@ fi
 /usr/local/bin/brew install git
 /usr/local/bin/brew install zsh
 /usr/local/bin/brew install vim
-/usr/local/bin/brew install mysql
-/usr/local/bin/brew install node
+# /usr/local/bin/brew install mysql
+# /usr/local/bin/brew install node
 
 ## vimrc
 VIMARC_ST=`ls ~/.vimrc`
@@ -42,19 +42,19 @@ if [ $? -ne 0 ]; then
   /bin/ln -s $PATH/zshrc/dot_zshrc ~/.zshrc
 fi
 
-## font
-/usr/local/bin/brew tap sanemat/font
-/usr/local/bin/brew install Caskroom/cask/xquartz
-/usr/local/bin/brew install ricty
-/bin/cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
-fc-cache -vf
-
-## cask
-/usr/local/bin/brew tap caskroom/cask
-
-/usr/local/bin/brew install trash
-echo 'alias rm="trash"' >> ~/.zshrc
-/usr/local/bin/brew install wget
-/usr/local/bin/brew install htop
-/usr/local/bin/brew install nkf
-
+# ## font
+# /usr/local/bin/brew tap sanemat/font
+# /usr/local/bin/brew install Caskroom/cask/xquartz
+# /usr/local/bin/brew install ricty
+# /bin/cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
+# fc-cache -vf
+#
+# ## cask
+# /usr/local/bin/brew tap caskroom/cask
+#
+# /usr/local/bin/brew install trash
+# echo 'alias rm="trash"' >> ~/.zshrc
+# /usr/local/bin/brew install wget
+# /usr/local/bin/brew install htop
+# /usr/local/bin/brew install nkf
+#
