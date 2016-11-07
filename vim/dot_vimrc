@@ -143,7 +143,7 @@ Plugin 'L9'
 Plugin 'marcus/rsense'
 Plugin 'supermomonga/neocomplete-rsense.vim'
 "Plugin 'git://git.wincent.com/command-t.git'
-"JS
+0"JS
 Plugin 'jiangmiao/simple-javascript-indenter'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'jelera/vim-javascript-syntax'
@@ -510,17 +510,6 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 " -------------------------------
 "  " Rsense
