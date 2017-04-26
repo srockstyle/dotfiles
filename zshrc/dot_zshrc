@@ -1,6 +1,7 @@
 ## UTF-8と日本語
 export LANG=ja_JP.UTF-8
-
+## backspace
+# bindkey -v '^?' backward-delete-char
 ## 色
 autoload colors
 colors
@@ -23,6 +24,8 @@ setopt hist_ignore_dups
 setopt share_history
 ## Emacs風キーバインドにする
 bindkey -e
+## Vom風キーバインドにする
+# bindkey -v
 ## 履歴検索機能のショートカット
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -40,11 +43,13 @@ kterm*|xterm)
     ;;
 esac
 # 単語の区切り文字を指定する
+# export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
 autoload -Uz select-word-style
 select-word-style default
 # ここで指定した文字は単語区切りとみなされる
 # / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
-zstyle ':zle:*' word-chars " /=;@:{},|"
+# zstyle ':zle:*' word-chars " /=;@:{},|"
+zstyle ':zle:*' word-chars "/*?_-.[]~&;=!#$%^(){}<>"
 zstyle ':zle:*' word-style unspecified
 ## 補完機能
 autoload -U compinit -u
@@ -60,13 +65,14 @@ setopt no_flow_control
 setopt ignore_eof
 # '#' 以降をコメントとして扱う
 setopt interactive_comments
-
-# --/pro とかのあとも補完
+# = 以降も補完する
 setopt magic_equal_subst
-setopt complete_in_word # 単語の途中でもカーソル一で補完
-setopt always_last_prompt #カーソル位置はそのままカーソル位置で補完
+# 単語の途中でもカーソル一で補完
+# setopt complete_in_word
+#カーソル位置はそのままカーソル位置で補完
+# setopt always_last_prompt
 setopt globdots # .ファイルでも.なしでマッチできる
-setopt list_packed # リストを詰めて表示
+# setopt list_packed # リストを詰めて表示
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 ## ディレクトリ名だけで移動
 setopt auto_cd
@@ -228,9 +234,9 @@ function github () {
 source ~/.zsh/rc/*
 ## zaw.zsh
 source ~/.zsh/functions/zaw/zaw.zsh
-## Ctrl -hで履歴起動。
+# ## Ctrl -hで履歴起動。
 bindkey '^h' zaw-history
-## その他設定
+# ## その他設定
 setopt hist_expand
 setopt inc_append_history
 setopt hist_no_store
@@ -425,6 +431,43 @@ function _update_vcs_info_msg() {
     RPROMPT="$prompt"
 }
 add-zsh-hook precmd _update_vcs_info_msg
+
+
+# コミットメッセージを送りやすくするキー[C-o]を設定する
+#ctrl+o でgit commit -m ''を設定
+function git_commit() {
+        BUFFER="git commit -m '"
+        CURSOR=$#BUFFER
+        BUFFER=$BUFFER\'
+}
+zle -N git_commit
+bindkey '^o' git_commit
+
+
 ##--------------------------------------------
 # Git関連ここまで
 ##--------------------------------------------
+
+
+##--------------------------------------------
+# キーバインド
+##---------------------------------------------
+## Ctr + 矢印で単語移動
+bindkey ";5C" forward-word
+bindkey ";5D" backward-word
+# function delete-region() {
+#     zle kill-region
+#     CUTBUFFER=$killring[1]
+#     shift killring
+# }
+# zle -N delete-region
+#
+# function backward-delete-char-or-region() {
+#     if [ $REGION_ACTIVE -eq 0 ]; then
+#         zle backward-delete-char
+#     else
+#         zle delete-region
+#     fi
+# }
+# zle -N backward-delete-char-or-region
+# bindkey "^h" backward-delete-char-or-region
