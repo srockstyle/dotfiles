@@ -220,6 +220,35 @@ function github () {
 }
 
 ##---------------------------------------------
+# 設定2
+##---------------------------------------------
+## コマンドラインからWebの検索をする
+## コマンドラインからWebの検索をする
+## rc以下は問答無用の読み込み
+source ~/.zsh/rc/*
+## zaw.zsh
+source ~/.zsh/functions/zaw/zaw.zsh
+## Ctrl -hで履歴起動。
+bindkey '^h' zaw-history
+## その他設定
+setopt hist_expand
+setopt inc_append_history
+setopt hist_no_store
+setopt hist_save_no_dups
+setopt hist_verify
+setopt hist_reduce_blanks
+## Golang
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+## Rvm
+VAGRANTMEM=256
+export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
+
+
+
+
+##---------------------------------------------
 # Git関連のプロンプト
 ##---------------------------------------------
 RPROMPT=""
@@ -396,79 +425,6 @@ function _update_vcs_info_msg() {
     RPROMPT="$prompt"
 }
 add-zsh-hook precmd _update_vcs_info_msg
-
-## rc以下は問答無用の読み込み
-source ~/.zsh/rc/*
-## zaw.zsh
-source ~/.zsh/functions/zaw/zaw.zsh
-## Ctrl -hで履歴起動。
-bindkey '^h' zaw-history
-## その他設定
-setopt hist_expand
-setopt inc_append_history
-setopt hist_no_store
-setopt hist_save_no_dups
-setopt hist_verify
-setopt hist_reduce_blanks
-
 ##--------------------------------------------
-# Golang
+# Git関連ここまで
 ##--------------------------------------------
-export GOPATH=$HOME/go
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-
-##---------------------------------------------
-# Rvm
-##---------------------------------------------
-VAGRANTMEM=256
-export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
-
-##--------------------------------------------
-## なんかよくわからない
-##--------------------------------------------
-# TODO ワードのきれているところを探す
-# COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
-# COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
-# export COMP_WORDBREAKS
-#
-# if type complete &>/dev/null; then
-#   _npm_completion () {
-#     local si="$IFS"
-#     IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
-#                            COMP_LINE="$COMP_LINE" \
-#                            COMP_POINT="$COMP_POINT" \
-#                            npm completion -- "${COMP_WORDS[@]}" \
-#                            2>/dev/null)) || return $?
-#     IFS="$si"
-#   }
-#   complete -F _npm_completion npm
-# elif type compdef &>/dev/null; then
-#   _npm_completion() {
-#     si=$IFS
-#     compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-#                  COMP_LINE=$BUFFER \
-#                  COMP_POINT=0 \
-#                  npm completion -- "${words[@]}" \
-#                  2>/dev/null)
-#     IFS=$si
-#   }
-#   compdef _npm_completion npm
-# elif type compctl &>/dev/null; then
-#   _npm_completion () {
-#     local cword line point words si
-#     read -Ac words
-#     read -cn cword
-#     let cword-=1
-#     read -l line
-#     read -ln point
-#     si="$IFS"
-#     IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-#                        COMP_LINE="$line" \
-#                        COMP_POINT="$point" \
-#                        npm completion -- "${words[@]}" \
-#                        2>/dev/null)) || return $?
-#     IFS="$si"
-#   }
-#   compctl -K _npm_completion npm
-# fi
