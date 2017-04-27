@@ -3,7 +3,8 @@ set number "行番号を表示する
 set title "編集中のファイル名を表示
 set showmatch "括弧入力時の対応する括弧を表示
 syntax on "コードの色分け
-set tabstop=2 "インデントをスペース4つ分に設定
+set tabstop=2
+set autoindent
 set expandtab
 set shiftwidth=2
 "オートインデント
@@ -34,11 +35,11 @@ set smartcase
 " 検索結果をハイライト表示する
 set hlsearch
 "多分を空白文字に
-set expandtab
+" set expandtab
 " 検索ワードの最初の文字を入力した時点で検索を開始する
 set incsearch
 " タブと行の続きを可視化する
-set listchars=tab:>\ ,extends:<
+" set listchars=tab:>\ ,extends:<
 " 対応する括弧やブレースを表示する
 set showmatch
 " スワップファイル用のパス
@@ -48,12 +49,18 @@ set incsearch
 "かっこをいれたら対応するかっこを表示
 set showmatch
 "新しい行を作った時に高度な自動インデントを行う
-set smarttab
+" set smarttab
 " grep検索を設定する
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
 
-call pathogen#infect()
+inoremap <C-e> <Esc>$a
+inoremap <C-a> <Esc>^a
+noremap <C-e> <Esc>$a
+noremap <C-a> <Esc>^a
+
+
+" call pathogen#infect()
 
 syntax enable
 filetype plugin indent on
@@ -106,12 +113,6 @@ nnoremap <Up>   gk
 "inoremap <Left> <Nop>
 "inoremap <Right> <Nop>
 
-" 行頭行末への移動
-:map! <C-e> <Esc>$a
-:map! <C-a> <Esc>^a
-:map <C-e> <Esc>$a
-:map <C-a> <Esc>^a
-
 "インサートモード中のカーソル関連
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
@@ -140,8 +141,10 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'terryma/vim-expand-region'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
-Plugin 'marcus/rsense'
-Plugin 'supermomonga/neocomplete-rsense.vim'
+Plugin 'basyura/TweetVim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Shougo/vimshell'
+Plugin 'Shougo/vimproc.vim'
 "Plugin 'git://git.wincent.com/command-t.git'
 0"JS
 Plugin 'jiangmiao/simple-javascript-indenter'
@@ -152,9 +155,10 @@ Plugin 'Shougo/neocomplcache'
 Plugin 'fuenor/JpFormat.vim'
 Plugin 'honza/vim-snippets'
 Plugin 'thinca/vim-qfreplace'
+Plugin 'NigoroJr/rsense'
 " Ruby / Rails関連
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'alpaca-tc/alpaca_tags'
+" Plugin 'alpaca-tc/alpaca_tags'
 Plugin 'tpope/vim-rails.git'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'Shougo/neosnippet'
@@ -176,6 +180,9 @@ Plugin 'tomtom/tcomment_vim'
 "Plugin 'timheap/linters.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'slim-template/vim-slim'
+
+Plugin 'Shougo/neocomplcache-rsense.vim', {
+    \ 'autoload' : { 'insert' : 1, 'filetype' : 'ruby', } }
 " 日本語関連の設定
 set runtimepath +=$HOME/.vim/bundle/JpFormat.vim
 set formatexpr=jpfmt#formatexpr()
@@ -209,6 +216,12 @@ map <C-w>s :sp<CR>
 "終了、保存周り
 map <C-q>w :wq!<CR>
 map <C-q> :q<CR>
+
+map <C-q> :wq!<CR>
+map <C-q> :q<CR>
+"画面の置換
+nnoremap gs  :<C-u>%s///g<Left><Left><Left>
+
 
 " Rails関連設定
 "------------------------------------
@@ -504,9 +517,28 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : ''
     \ }
 
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
+" neocomplcache
+let g:neocomplcache_max_list = 30
+let g:neocomplcache_enable_auto_select = 1
+"" search with camel case like Eclipse
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+"imap <C-k> <Plug>(neocomplcache_snippets_expand)
+"smap <C-k> <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-l> neocomplcache#complete_common_string()
+"" SuperTab like snippets behavior.
+"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+"" <CR>: close popup and save indent.
+"inoremap <expr><CR> neocomplcache#smart_close_popup() . (&indentexpr != '' ? "\<C-f>\<CR>X\<BS>":"\<CR>")
+" inoremap <expr><CR> pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+"" <TAB>: completion.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup() . "\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<C-h>"
+inoremap <expr><C-y> neocomplcache#close_popup()
+"inoremap <expr><C-e> neocomplcache#cancel_popup()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -514,9 +546,38 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 " -------------------------------
 "  " Rsense
 "  " -------------------------------
-let g:rsenseHome = '/usr/local/Cellar/rsense/0.3'
+
+" 補完の設定
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
+
 let g:rsenseUseOmniFunc = 1
 
-"htmlファイルとして認識
-au BufNewFile,BufRead *.tag setf html
-" au BufNewFile,BufRead *.tag setlocal ft=javascript
+" MEATree
+" autocmd vimenter * NERDTree
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+call NERDTreeHighlightFile('py',     'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('styl',   'cyan',    'none', 'cyan',    '#151515')
+call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan',    '#151515')
+call NERDTreeHighlightFile('rb',     'Red',     'none', 'red',     '#151515')
+call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php',    'Magenta', 'none', '#ff00ff', '#151515')
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable  = '▶'
+let g:NERDTreeDirArrowCollapsible = '▼'
+nnoremap <silent><C-t> :NERDTreeToggle<CR>
+" ファイル指定で開かれた場合はNERDTreeは表示しない
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
