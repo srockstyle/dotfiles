@@ -247,10 +247,11 @@ setopt hist_reduce_blanks
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/bin:$PATH
 ## Rvm
 VAGRANTMEM=256
-export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
-
+# export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
+source "$HOME/.rvm/scripts/rvm"
 
 
 
