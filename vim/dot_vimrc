@@ -71,7 +71,8 @@ filetype plugin indent on
 nnoremap <ESC><ESC> :nohlsearch<CR>
 " 全角スペースの表示
 function! ZenkakuSpace()
-    highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse guifg=DarkGray
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse
+    guifg=DarkGray
 endfunction
 if has('syntax')
     augroup ZenkakuSpace
@@ -126,7 +127,8 @@ set ambiwidth=double
 set display+=lastline
 " ファイルエンコーディングの表示
 set laststatus=2
-set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\
+set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,
+%l)/%L%8P\
 " Vundleを使うのに必要な設定
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -163,11 +165,16 @@ Plugin 'AndrewRadev/switch.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'tpope/vim-endwise'
-Plugin 'Shougo/unite.vim'
-Plugin 'basyura/unite-rails'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'thinca/vim-ref'
 Plugin 'yuku-t/vim-ref-ri'
+
+"unite"
+Plugin 'Shougo/unite.vim'
+Plugin 'basyura/unite-rails'
+
+
+
 " その他Web関連
 Plugin 'nicklasos/vim-jsx-riot'
 Plugin 'JulesWang/css.vim'
@@ -300,7 +307,7 @@ let s:switch_definition = {
       \   ['controller', 'model', 'view', 'migration', 'scaffold'],
       \ ],
       \ 'erb,html,php,tag' : [
-      \   { '<!--\([a-zA-Z0-9 /]\+\)--></\(div\|ul\|li\|a\)>' : '</\2><!--\1-->' },
+      \   { '<!--\([a-zA-Z0-9 /]\+\)--></\(div\|ul\|li\|a\)>' : '</\2><!--\1-->'},
       \ ],
       \ 'rails' : [
       \   [100, ':continue', ':information'],
@@ -375,7 +382,8 @@ let s:switch_definition = {
       \ ]
       \ }
 
-let s:switch_definition = s:separate_defenition_to_each_filetypes(s:switch_definition)
+let s:switch_definition =
+s:separate_defenition_to_each_filetypes(s:switch_definition)
 function! s:define_switch_mappings() "{{{
   if exists('b:switch_custom_definitions')
     unlet b:switch_custom_definitions
@@ -403,7 +411,8 @@ endfunction"}}}
 
 augroup SwitchSetting
   autocmd!
-  autocmd Filetype * if !empty(split(&ft, '\.')) | call <SID>define_switch_mappings() | endif
+  autocmd Filetype * if !empty(split(&ft, '\.')) | call
+  <SID>define_switch_mappings() | endif
 augroup END
 
 
@@ -538,8 +547,10 @@ let g:rsenseUseOmniFunc = 1
 " autocmd vimenter * NERDTree
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .
+ 'ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'.
+ a:extension .'$#'
 endfunction
 call NERDTreeHighlightFile('py',     'yellow',  'none', 'yellow',  '#151515')
 call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
