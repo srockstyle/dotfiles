@@ -70,20 +70,20 @@ filetype plugin indent on
 " " 検索結果のハイライトをEsc連打でクリアする
 nnoremap <ESC><ESC> :nohlsearch<CR>
 " 全角スペースの表示
-function! ZenkakuSpace()
-    highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse
-    guifg=DarkGray
-endfunction
-if has('syntax')
-    augroup ZenkakuSpace
-        autocmd!
-        "ZenkakuSpace をカラーファイルで設定するなら、
-        "次の行をコメントアウト
-        autocmd ColorScheme       * call ZenkakuSpace()
-        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
-    augroup END
-    call ZenkakuSpace()
-endif
+" function! ZenkakuSpace()
+"     highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse
+"     guifg=DarkGray
+" endfunction
+" if has('syntax')
+"     augroup ZenkakuSpace
+"         autocmd!
+"         "ZenkakuSpace をカラーファイルで設定するなら、
+"         "次の行をコメントアウト
+"         autocmd ColorScheme       * call ZenkakuSpace()
+"         autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+"     augroup END
+"     call ZenkakuSpace()
+" endif
 
 
 " スペース + oで新しいファイル
@@ -127,8 +127,7 @@ set ambiwidth=double
 set display+=lastline
 " ファイルエンコーディングの表示
 set laststatus=2
-set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,
-%l)/%L%8P\
+set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\
 " Vundleを使うのに必要な設定
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -382,6 +381,7 @@ let s:switch_definition = {
       \ ]
       \ }
 
+"なんでこの設定したか忘れた"
 let s:switch_definition =
 s:separate_defenition_to_each_filetypes(s:switch_definition)
 function! s:define_switch_mappings() "{{{
@@ -415,7 +415,7 @@ augroup SwitchSetting
   <SID>define_switch_mappings() | endif
 augroup END
 
-
+"
 "------------------------------------
 " Unite-rails.vim
 "------------------------------------
@@ -570,4 +570,4 @@ let g:NERDTreeDirArrowCollapsible = '▼'
 nnoremap <silent><C-t> :NERDTreeToggle<CR>
 " ファイル指定で開かれた場合はNERDTreeは表示しない
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
