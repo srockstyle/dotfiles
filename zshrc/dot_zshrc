@@ -42,6 +42,13 @@ kterm*|xterm)
     }
     ;;
 esac
+
+# 自動CD
+# ディレクトリと解釈すればそのままCD
+setopt AUTO_CD
+cdpath=(.. ~ ~/src)
+
+
 # 単語の区切り文字を指定する
 # export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
 autoload -Uz select-word-style
