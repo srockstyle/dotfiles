@@ -20,7 +20,9 @@ brew install git
 brew install zsh
 brew install vim
 brew install mysql
+brew install ctags
 brew install node
+ctags -R
 
 ## vimrc
 ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
