@@ -23,13 +23,20 @@ brew install peco
 brew install hub
 #brew install mysql
 #brew install node
+brew install vim
+brew install mysql
+brew install ctags
+brew install node
+ctags -R
 
 ## vimrc
 ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
 mkdir -p ~/.vim/bundle
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 mkdir -p ~/.vim/colors
 mkdir -p ~/.vim/vim-snippets
+mkdir -p ~/.vim/plugin
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone https://github.com/soramugi/auto-ctags.vim.git ~/.vim/plugin/auto-ctags.vim.git
 vim +PluginInstall +qall
 
 

@@ -71,7 +71,8 @@ filetype plugin indent on
 nnoremap <ESC><ESC> :nohlsearch<CR>
 " 全角スペースの表示
 function! ZenkakuSpace()
-    highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse guifg=DarkGray
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkGray gui=reverse
+    guifg=DarkGray
 endfunction
 if has('syntax')
     augroup ZenkakuSpace
@@ -126,7 +127,8 @@ set ambiwidth=double
 set display+=lastline
 " ファイルエンコーディングの表示
 set laststatus=2
-set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\
+set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,
+%l)/%L%8P\
 " Vundleを使うのに必要な設定
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -134,7 +136,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 call vundle#end()            " required
 filetype plugin indent on    " required
-map <C-i> :PluginInstall<CR>
+"TABでPlugininstallをとめた"
+" map <C-i> :PluginInstall<CR>
 " Vundleを使うのにインストールするモジュールリスト
 Plugin 'gmarik/Vundle.vim'
 Plugin 'terryma/vim-expand-region'
@@ -143,6 +146,7 @@ Plugin 'L9'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Shougo/vimshell'
 Plugin 'Shougo/vimproc.vim'
+Plugin 'soramugi/auto-ctags.vim'
 "Plugin 'git://git.wincent.com/command-t.git'
 "JS
 Plugin 'jiangmiao/simple-javascript-indenter'
@@ -156,17 +160,21 @@ Plugin 'thinca/vim-qfreplace'
 Plugin 'NigoroJr/rsense'
 " Ruby / Rails関連
 Plugin 'vim-ruby/vim-ruby'
-" Plugin 'alpaca-tc/alpaca_tags'
 Plugin 'tpope/vim-rails.git'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'tpope/vim-endwise'
-Plugin 'Shougo/unite.vim'
-Plugin 'basyura/unite-rails'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'thinca/vim-ref'
 Plugin 'yuku-t/vim-ref-ri'
+
+"unite"
+Plugin 'Shougo/unite.vim'
+Plugin 'basyura/unite-rails'
+
+
+
 " その他Web関連
 Plugin 'nicklasos/vim-jsx-riot'
 Plugin 'JulesWang/css.vim'
@@ -175,7 +183,6 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'Shougo/vimfiler.vim'
 Plugin 'tomtom/tcomment_vim'
-"Plugin 'timheap/linters.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'slim-template/vim-slim'
 
@@ -300,7 +307,7 @@ let s:switch_definition = {
       \   ['controller', 'model', 'view', 'migration', 'scaffold'],
       \ ],
       \ 'erb,html,php,tag' : [
-      \   { '<!--\([a-zA-Z0-9 /]\+\)--></\(div\|ul\|li\|a\)>' : '</\2><!--\1-->' },
+      \   { '<!--\([a-zA-Z0-9 /]\+\)--></\(div\|ul\|li\|a\)>' : '</\2><!--\1-->'},
       \ ],
       \ 'rails' : [
       \   [100, ':continue', ':information'],
@@ -375,7 +382,8 @@ let s:switch_definition = {
       \ ]
       \ }
 
-let s:switch_definition = s:separate_defenition_to_each_filetypes(s:switch_definition)
+let s:switch_definition =
+s:separate_defenition_to_each_filetypes(s:switch_definition)
 function! s:define_switch_mappings() "{{{
   if exists('b:switch_custom_definitions')
     unlet b:switch_custom_definitions
@@ -403,7 +411,8 @@ endfunction"}}}
 
 augroup SwitchSetting
   autocmd!
-  autocmd Filetype * if !empty(split(&ft, '\.')) | call <SID>define_switch_mappings() | endif
+  autocmd Filetype * if !empty(split(&ft, '\.')) | call
+  <SID>define_switch_mappings() | endif
 augroup END
 
 
@@ -499,14 +508,10 @@ autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 1
 
 "--------------------------
 " NeoComplete
-"" neocomplcache
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
@@ -514,35 +519,22 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : ''
     \ }
-
 " neocomplcache
 let g:neocomplcache_max_list = 30
 let g:neocomplcache_enable_auto_select = 1
-"" search with camel case like Eclipse
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
-"imap <C-k> <Plug>(neocomplcache_snippets_expand)
-"smap <C-k> <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g> neocomplcache#undo_completion()
 inoremap <expr><C-l> neocomplcache#complete_common_string()
-"" SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <CR>: close popup and save indent.
-"inoremap <expr><CR> neocomplcache#smart_close_popup() . (&indentexpr != '' ? "\<C-f>\<CR>X\<BS>":"\<CR>")
-" inoremap <expr><CR> pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-"" <TAB>: completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup() . "\<C-h>"
+" inoremap <expr><C-h> neocomplcache#smart_close_popup() . "\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<C-h>"
 inoremap <expr><C-y> neocomplcache#close_popup()
-"inoremap <expr><C-e> neocomplcache#cancel_popup()
 
 
 " -------------------------------
 "  " Rsense
 "  " -------------------------------
-
 " 補完の設定
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
@@ -555,8 +547,10 @@ let g:rsenseUseOmniFunc = 1
 " autocmd vimenter * NERDTree
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .
+ 'ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'.
+ a:extension .'$#'
 endfunction
 call NERDTreeHighlightFile('py',     'yellow',  'none', 'yellow',  '#151515')
 call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
