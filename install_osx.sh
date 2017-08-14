@@ -18,16 +18,25 @@ fi
 ## brewでいれるやつ
 brew install git
 brew install zsh
+brew install ghq
+brew install peco
+brew install hub
+#brew install mysql
+#brew install node
 brew install vim
 brew install mysql
+brew install ctags
 brew install node
+ctags -R
 
 ## vimrc
 ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
 mkdir -p ~/.vim/bundle
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 mkdir -p ~/.vim/colors
 mkdir -p ~/.vim/vim-snippets
+mkdir -p ~/.vim/plugin
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone https://github.com/soramugi/auto-ctags.vim.git ~/.vim/plugin/auto-ctags.vim.git
 vim +PluginInstall +qall
 
 
@@ -48,8 +57,8 @@ brew install wget
 brew install tree
 brew install go
 # rmコマンドの代わりにtrashを使って、削除時にはゴミ箱に入れる
-brew install trash
-echo 'alias rm="trash"' >> ~/.bash_profile
+#brew install trash
+#echo 'alias rm="trash"' >> ~/.bash_profile
 
 # インフラ・ネットワーク系
 brew install wget
@@ -59,8 +68,8 @@ brew install ansible
 
 brew install watch
 brew install which
-brew install rsense
-ruby /usr/local/Cellar/rsense/*/libexec/etc/config.rb > ~/.rsense
+#brew install rsense
+#ruby /usr/local/Cellar/rsense/*/libexec/etc/config.rb > ~/.rsense
 brew install tree
 # brew install imagemagick
 # brew install q
@@ -87,7 +96,7 @@ brew cask install vagrant
 # vagrant plugin install vagrant-hostmanager
 # vagrant plugin install vagrant-aws
 # vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
-brew cask install chefdk
+#brew cask install chefdk
 brew cask install atom
 
 ## r
@@ -108,15 +117,15 @@ brew cask install atom
 #
 # evernote
 
-brew cask install evernote
-brew cask install skitch
+#brew cask install evernote
+#brew cask install skitch
 
 ## 開発環境もろもろ
-gem install ec2ssh
-rbenv rehash
-ec2ssh init
-ec2ssh update
-gem install kitchen-vagrant
+#gem install ec2ssh
+#rbenv rehash
+#ec2ssh init
+#ec2ssh update
+#gem install kitchen-vagrant
 
 ## Atom
 apm install rsense
@@ -124,15 +133,15 @@ apm install japanese-menu
 apm install autocomplete-plus
 
 ## SNS
-brew cask install twitter
+#brew cask install twitter
 
 
 # desktop apps via cask
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-brew cask install cheatsheet
-brew cask install dash
-brew cask install dropbox
+#export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+#brew cask install cheatsheet
+#brew cask install dash
+#brew cask install dropbox
 brew cask install google-chrome
-brew cask install iterm2
-brew cask install slack
-brew cask install skype
+#brew cask install iterm2
+#brew cask install slack
+#brew cask install skype

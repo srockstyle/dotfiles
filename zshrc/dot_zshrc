@@ -42,6 +42,13 @@ kterm*|xterm)
     }
     ;;
 esac
+
+# 自動CD
+# ディレクトリと解釈すればそのままCD
+setopt AUTO_CD
+cdpath=(.. ~ ~/src)
+
+
 # 単語の区切り文字を指定する
 # export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
 autoload -Uz select-word-style
@@ -49,7 +56,7 @@ select-word-style default
 # ここで指定した文字は単語区切りとみなされる
 # / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 # zstyle ':zle:*' word-chars " /=;@:{},|"
-zstyle ':zle:*' word-chars "/*?_-.[]~&;=!#$%^(){}<>"
+zstyle ':zle:*' word-chars " /*?_-.[]~&;=!#$%^(){}<>"
 zstyle ':zle:*' word-style unspecified
 ## 補完機能
 autoload -U compinit -u
@@ -230,7 +237,7 @@ function github () {
 ## コマンドラインからWebの検索をする
 ## コマンドラインからWebの検索をする
 ## rc以下は問答無用の読み込み
-source ~/.zsh/rc/*
+# source ~/.zsh/rc/*
 ## zaw.zsh
 source ~/.zsh/functions/zaw/zaw.zsh
 # ## Ctrl -hで履歴起動。
@@ -243,13 +250,13 @@ setopt hist_save_no_dups
 setopt hist_verify
 setopt hist_reduce_blanks
 ## Golang
-export GOPATH=$HOME/go
 export GOROOT=/usr/local/opt/go/libexec
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export GOPATH=$HOME/Documents/github/ayase-underdog/go
+# export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export PATH=$PATH:$GOPATH/bin:$GOROOT/bin:/usr/local/bin
 ## Rvm
 VAGRANTMEM=256
 export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
-
 
 
 
