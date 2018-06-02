@@ -52,7 +52,7 @@ set smarttab
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
 
-" inoremap <C-e> <Esc>$a
+inoremap <C-e> <Esc>$a
 inoremap <C-a> <Esc>^a
 noremap <C-e> <Esc>$a
 noremap <C-a> <Esc>^a
@@ -124,7 +124,7 @@ Plugin 'Shougo/vimshell'
 Plugin 'Shougo/vimproc.vim'
 " スタンダード
 " unite
-
+Plugin  'szw/vim-tags'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neomru.vim'
 Plugin 'basyura/unite-rails'
@@ -363,3 +363,9 @@ endfunction
 "
 " riot.js
 au BufNewFile,BufRead *.tag setlocal ft=html
+
+"タグジャンプ
+au BufNewFile,BufRead *.php let g:vim_tags_project_tags_command = "ctags --languages=ruby -f ~/.vim/tags/ruby.tags `pwd` 2>/dev/null &"
+nnoremap <C-d> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-s> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-U> :TagsGenerate<CR>

@@ -261,6 +261,10 @@ export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
 ## Python
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
+export PATH="/Users/ayase-underdog/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
 
 # PHP
 export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
