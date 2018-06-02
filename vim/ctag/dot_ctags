@@ -1,0 +1,4 @@
+--append=yes
+--recurse=yes
+--langmap=RUBY:+.rb
+--php-kinds=cfd

@@ -258,11 +258,9 @@ export PATH=$PATH:$GOPATH/bin:$GOROOT/bin:/usr/local/bin
 VAGRANTMEM=256
 export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
 ## Python
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
-export PATH="/Users/ayase-underdog/.pyenv/bin:$PATH"
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 
 # PHP
