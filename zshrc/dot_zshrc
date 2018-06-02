@@ -256,8 +256,22 @@ export GOPATH=$HOME/Documents/github/ayase-underdog/go
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin:/usr/local/bin
 ## Rvm
 VAGRANTMEM=256
-export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin:$HOME/.chefdk/gem/ruby/2.4.0/bin"
+export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
+## Python
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+eval "$(pyenv init -)"
 
+
+# PHP
+# export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
+
+# node
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+
+## user loal
+export PATH="/usr/local/bin:$PATH"
 
 
 ##---------------------------------------------
