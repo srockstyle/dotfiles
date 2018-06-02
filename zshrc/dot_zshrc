@@ -256,7 +256,7 @@ export GOPATH=$HOME/Documents/github/ayase-underdog/go
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin:/usr/local/bin
 ## Rvm
 VAGRANTMEM=256
-export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
+export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin:$HOME/.chefdk/gem/ruby/2.4.0/bin"
 
 
 
@@ -468,7 +468,6 @@ bindkey ";5D" backward-word
 # }
 # zle -N delete-region
 #
-<<<<<<< HEAD
 
 COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
 COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
