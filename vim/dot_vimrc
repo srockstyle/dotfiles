@@ -2,7 +2,8 @@ set number "行番号を表示する
 set title "編集中のファイル名を表示
 set showmatch "括弧入力時の対応する括弧を表示
 syntax on "コードの色分け
-set tabstop=2 "インデントをスペース4つ分に設定
+set tabstop=2
+set autoindent
 set expandtab
 set shiftwidth=2
 "オートインデント
@@ -33,11 +34,11 @@ set smartcase
 " 検索結果をハイライト表示する
 set hlsearch
 "多分を空白文字に
-set expandtab
+" set expandtab
 " 検索ワードの最初の文字を入力した時点で検索を開始する
 set incsearch
 " タブと行の続きを可視化する
-set listchars=tab:>\ ,extends:<
+" set listchars=tab:>\ ,extends:<
 " 対応する括弧やブレースを表示する
 set showmatch
 " スワップファイル用のパス
@@ -47,7 +48,7 @@ set incsearch
 "かっこをいれたら対応するかっこを表示
 set showmatch
 "新しい行を作った時に高度な自動インデントを行う
-set smarttab
+" set smarttab
 " grep検索を設定する
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
@@ -119,16 +120,19 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'terryma/vim-expand-region'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
+Plugin 'basyura/TweetVim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Shougo/vimshell'
 Plugin 'Shougo/vimproc.vim'
+" VPlugin 'jiangmiao/simple-javascript-indenter'
+" Plugin 'othree/javascript-libraries-syntax.vim'
+" Plugin 'jelera/vim-javascript-syntax'
 " スタンダード
 " unite
 Plugin  'szw/vim-tags'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neomru.vim'
 Plugin 'basyura/unite-rails'
-
 Plugin 'Shougo/neocomplcache'
 
 " 日本語入力保管
@@ -255,7 +259,43 @@ inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " inoremap <expr><C-h> neocomplcache#smart_close_popup() . "\<C-h>"
 " inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<C-h>"
 " inoremap <expr><C-y> neocomplcache#close_popup()
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
 
+" -------------------------------
+"  " Rsense
+"  " -------------------------------
+
+" 補完の設定
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
+
+let g:rsenseUseOmniFunc = 1
+
+" MEATree
+" autocmd vimenter * NERDTree
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+call NERDTreeHighlightFile('py',     'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow',  '#151515')
+call NERDTreeHighlightFile('styl',   'cyan',    'none', 'cyan',    '#151515')
+call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan',    '#151515')
+call NERDTreeHighlightFile('rb',     'Red',     'none', 'red',     '#151515')
+call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php',    'Magenta', 'none', '#ff00ff', '#151515')
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable  = '▶'
+let g:NERDTreeDirArrowCollapsible = '▼'
 nnoremap <silent><C-t> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
