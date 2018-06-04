@@ -257,7 +257,21 @@ export PATH=$PATH:$GOPATH/bin:$GOROOT/bin:/usr/local/bin
 ## Rvm
 VAGRANTMEM=256
 export PATH="$PATH:$HOME/.rvm/bin:/usr/local/bin"
+## Python
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+eval "$(pyenv init -)"
 
+
+# PHP
+# export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
+
+# node
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+
+## user loal
+export PATH="/usr/local/bin:$PATH"
 
 
 ##---------------------------------------------
@@ -468,8 +482,6 @@ bindkey ";5D" backward-word
 # }
 # zle -N delete-region
 #
-<<<<<<< HEAD
-
 COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
 COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
 export COMP_WORDBREAKS
