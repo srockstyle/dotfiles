@@ -533,7 +533,7 @@ VAGRANTMEM=256
 PATH=$PATH:$HOME/.rvm/bin:/usr/local/bin
 if [ -x "`which go`" ]; then
   export GOROOT=`go env GOROOT`
-  export GOPATH=$HOME/code/go-local
+  export GOPATH=$HOME/code/go_local
   export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 

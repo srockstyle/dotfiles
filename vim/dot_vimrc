@@ -121,9 +121,9 @@ Plugin 'terryma/vim-expand-region'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 Plugin 'basyura/TweetVim'
-Plugin 'scrooloose/nerdtree'
 Plugin 'Shougo/vimshell'
 Plugin 'Shougo/vimproc.vim'
+Plugin 'w0rp/ale'
 " VPlugin 'jiangmiao/simple-javascript-indenter'
 " Plugin 'othree/javascript-libraries-syntax.vim'
 " Plugin 'jelera/vim-javascript-syntax'
@@ -133,7 +133,7 @@ Plugin  'szw/vim-tags'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neomru.vim'
 Plugin 'basyura/unite-rails'
-Plugin 'Shougo/neocomplcache'
+"Plugin 'slim-template/vim-slim.git'
 
 " 日本語入力保管
 Plugin 'fuenor/JpFormat.vim'
@@ -177,6 +177,18 @@ Plugin 'Shougo/vimfiler.vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'slim-template/vim-slim'
+
+
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+
+
+
 "------------------------------------
 " タブ設定
 "-----------------------------------
@@ -184,9 +196,6 @@ Plugin 'slim-template/vim-slim'
 " マークダウン
 " https://github.com/gabrielelana/vim-markdown
 Plugin 'plasticboy/vim-markdown'
-
-Plugin 'Shougo/neocomplcache-rsense.vim', {
-    \ 'autoload' : { 'insert' : 0, 'filetype' : 'ruby', } }
 
 
 """"""""""""""""""""""""""""""
@@ -234,84 +243,32 @@ imap ( ()<LEFT>
 """"""""""""""""""""""""""""""
 set whichwrap=b,s,h,l,<,>,[,]
 
-"--------------------------
-" NeoCompleteの設定。
-" Disable AutoComplPop.
-"-----------------------ss---
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+""""""""""""""""""""""""""""""
+" 補完
+""""""""""""""""""""""""""""""
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : ''
-    \ }
-" neocomplcache
-let g:neocomplcache_max_list = 30
-let g:neocomplcache_enable_auto_select = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion = 1
-" inoremap <expr><C-g> neocomplcache#undo_completion()
-" inoremap <expr><C-l> neocomplcache#complete_common_string()
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-" inoremap <expr><C-h> neocomplcache#smart_close_popup() . "\<C-h>"
-" inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<C-h>"
-" inoremap <expr><C-y> neocomplcache#close_popup()
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
 
-" -------------------------------
-"  " Rsense
-"  " -------------------------------
-
-" 補完の設定
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
-
-let g:rsenseUseOmniFunc = 1
-
-" MEATree
-" autocmd vimenter * NERDTree
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-call NERDTreeHighlightFile('py',     'yellow',  'none', 'yellow',  '#151515')
-call NERDTreeHighlightFile('md',     'blue',    'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml',    'yellow',  'none', 'yellow',  '#151515')
-call NERDTreeHighlightFile('config', 'yellow',  'none', 'yellow',  '#151515')
-call NERDTreeHighlightFile('conf',   'yellow',  'none', 'yellow',  '#151515')
-call NERDTreeHighlightFile('json',   'yellow',  'none', 'yellow',  '#151515')
-call NERDTreeHighlightFile('html',   'yellow',  'none', 'yellow',  '#151515')
-call NERDTreeHighlightFile('styl',   'cyan',    'none', 'cyan',    '#151515')
-call NERDTreeHighlightFile('css',    'cyan',    'none', 'cyan',    '#151515')
-call NERDTreeHighlightFile('rb',     'Red',     'none', 'red',     '#151515')
-call NERDTreeHighlightFile('js',     'Red',     'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php',    'Magenta', 'none', '#ff00ff', '#151515')
-let g:NERDTreeDirArrows = 1
-let g:NERDTreeDirArrowExpandable  = '▶'
-let g:NERDTreeDirArrowCollapsible = '▼'
-nnoremap <silent><C-t> :NERDTreeToggle<CR>
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
+""""""""""""""""""""""""""""""
 "タグジャンプ
+""""""""""""""""""""""""""""""
 " TODO http://qiita.com/soramugi/items/f918020c2b3f48c93bf3
 " http://qiita.com/tutu/items/fbc4023ebc3004964e86
 " nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 " nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 
 
+""""""""""""""""""""""""""""""
 " unite
+""""""""""""""""""""""""""""""
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
+
+""""""""""""""""""""""""""""""
 " 履歴
+""""""""""""""""""""""""""""""
 nnoremap <silent> uy :<C-u>Unite history/yank<CR>
 nnoremap <silent> ub :<C-u>Unite buffer<CR>
 nnoremap <silent> uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
@@ -319,8 +276,10 @@ nnoremap <silent> ur :<C-u>Unite -buffer-name=register register<CR>
 " unite起動
 nnoremap <silent> ua :<C-u>Unite file_mru buffer<CR>
 
+""""""""""""""""""""""""""""""
 " Rails
 " Rails間を高速移動
+""""""""""""""""""""""""""""""
 autocmd User Rails.view*                 NeoSnippetSource ~/.vim/snippet/ruby.rails.view.snip
 autocmd User Rails.controller*           NeoSnippetSource ~/.vim/snippet/ruby.rails.controller.snip
 autocmd User Rails/db/migrate/*          NeoSnippetSource ~/.vim/snippet/ruby.rails.migrate.snip
@@ -344,24 +303,6 @@ augroup END
 " タブ設定
 "-----------------------------------
 map <Shift><Space> :table>
-
-"------------------------------------
-" rsenc
-"-----------------------------------
-" NeoBundle 'NigoroJr/rsense'
-" NeoBundleLazy 'supermomonga/neocomplete-rsense.vim', {
-"     \ 'autoload' : { 'insert' : 1, 'filetype' : 'ruby', } }
-"
-" " 補完の設定
-" if !exists('g:neocomplete#force_omni_input_patterns')
-"   let g:neocomplete#force_omni_input_patterns = {}
-" endif
-" let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
-"
-" let g:rsenseUseOmniFunc = 1
-"
-"
-
 
 
 "------------------------------------
@@ -409,3 +350,5 @@ au BufNewFile,BufRead *.php let g:vim_tags_project_tags_command = "ctags --langu
 nnoremap <C-d> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-s> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-U> :TagsGenerate<CR>
+
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
