@@ -137,10 +137,6 @@ Plugin 'basyura/unite-rails'
 
 " 日本語入力保管
 Plugin 'fuenor/JpFormat.vim'
-" スニペット
-Plugin 'honza/vim-snippets'
-" 外部ファイル全検索 / 今はまだいらないかな
-" Plugin 'thinca/vim-qfreplace'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
@@ -297,6 +293,19 @@ augroup source-vimrc
   autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
   autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
 augroup END
+
+"coffeee
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+" インデント設定
+autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
+" オートコンパイル
+  "保存と同時にコンパイルする
+" autocmd BufWritePost *.coffee silent make!
+  "エラーがあったら別ウィンドウで表示
+" autocmd QuickFixCmdPost * nested cwindow | redraw!
+" Ctrl-cで右ウィンドウにコンパイル結果を一時表示する
+" nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
+"
 
 "augroup END
 "------------------------------------
