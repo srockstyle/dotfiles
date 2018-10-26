@@ -17,13 +17,13 @@ repo = 'Shougo/vimshell'
 repo = 'szw/vim-tags'
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
+repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 
-[[plugins]]
-repo = 'basyura/unite-rails'
+#[[plugins]]
+#repo = 'basyura/unite-rails'
 
 [[plugins]]
 repo = 'fuenor/JpFormat.vim'
@@ -32,10 +32,16 @@ repo = 'fuenor/JpFormat.vim'
 repo = 'AndrewRadev/switch.vim'
 
 [[plugins]]
+repo = 'Shougo/neocomplete'
+
+[[plugins]]
 repo = 'Shougo/neosnippet'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
 
 [[plugins]]
 repo = 'tpope/vim-endwise'
@@ -56,19 +62,16 @@ repo = 'tpope/vim-rails.git'
 repo = 'yuku-t/vim-ref-ri'
 
 [[plugins]]
-repo = 'NigoroJr/rsense'
-
-[[plugins]]
 repo = 'JulesWang/css.vim'
 
 [[plugins]]
 repo = 'hail2u/vim-css3-syntax'
 
-#[[plugins]]
-#repo = 'myvim/python.vim'
+[[plugins]]
+repo = 'tmhedberg/matchit'
 
 [[plugins]]
-repo = 'Shougo/vimfiler.vim'
+repo = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
@@ -126,11 +129,29 @@ repo = 'rhysd/clever-f.vim'
 #repo = 'Shougo/neco-syntax'
 
 # lookをつかった補完
-# [[plugins]] */
-#/* repo = 'ujihisa/neco-look' */
-#/*  */
-
-# Ruby補完
 [[plugins]]
-repo = 'fishbullet/deoplete-ruby'
+repo = 'ujihisa/neco-look'
+
+# 構文チェック
+[[plugins]]
+repo = 'scrooloose/syntastic'
+
+[[plugins]]
+repo = 'ngmy/vim-rubocop'
+
+# git
+[[plugins]]
+repo = "airblade/vim-gitgutter"
+
+[[plugins]]
+repo = "tpope/vim-fugitive"
+
+[[plugins]]
+repo = "Shougo/denite.nvim"
+
+[[plugins]]
+repo = "chemzqm/denite-git"
+
+[[plugins]]
+repo = "Shougo/deol.nvim"
 

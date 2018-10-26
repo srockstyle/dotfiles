@@ -21,21 +21,29 @@ brew install zsh
 brew install ghq
 brew install peco
 brew install hub
-brew install vim
-# brew install mysql
+brew install vim --with-python3 --with-lua
 brew install ctags
 brew install node
 ctags -R
 
-## vimrc
+##-------------
+## vim
+##-------------
+# ディレクトリ
+mkdir -p ~/.vim/dein
+mkdir -p ~/.vim/dein/userconfig/
+mkdir -p ~/.vim/dictionaries/
+# パッケージ管理
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.vim/installer.sh
+/bin/sh ~/.vim/installer.sh ~/.vim/dein
+# 設定ファイル
 ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
-mkdir -p ~/.vim/bundle
-mkdir -p ~/.vim/colors
-mkdir -p ~/.vim/vim-snippets
-mkdir -p ~/.vim/plugin
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-git clone https://github.com/soramugi/auto-ctags.vim.git ~/.vim/plugin/auto-ctags.vim.git
-vim +PluginInstall +qall
+ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vim/dein/userconfig/plugins.toml
+
+## 補完系
+git clone https://github.com/pocke/dicts ~/.vim/dictionaries/
+# Ruby
+gem install solargraph
 
 
 ## zshrc
