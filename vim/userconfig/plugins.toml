@@ -113,6 +113,24 @@ repo = 'rhysd/accelerated-jk'
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
 
-# f検索強化
+# 検索強化
 [[plugins]]
 repo = 'rhysd/clever-f.vim'
+
+# vimスクリプト補完
+#[[plugins]]
+#repo = 'Shougo/neco-vim'
+
+# 各プラグインの内部をみて言語補完。
+#[[plugins]]
+#repo = 'Shougo/neco-syntax'
+
+# lookをつかった補完
+# [[plugins]] */
+#/* repo = 'ujihisa/neco-look' */
+#/*  */
+
+# Ruby補完
+[[plugins]]
+repo = 'fishbullet/deoplete-ruby'
+

@@ -2,13 +2,14 @@ set number "行番号を表示する
 set title "編集中のファイル名を表示
 set showmatch "括弧入力時の対応する括弧を表示
 syntax on "コードの色分け
+set shell=/bin/bash
 set tabstop=2
 set autoindent
 set expandtab
 set shiftwidth=2
 "オートインデント
 " 保存時に行末の空白を除去する
- autocmd BufWritePre * :%s/\s\+$//ge
+autocmd BufWritePre * :%s/\s\+$//ge
 set smartindent
 let g:unite_enable_start_insert=0
 "スワップファイル使わない
@@ -16,7 +17,6 @@ set noswapfile
 " カーソルが何行目の何列目に置かれているかを表示する
 set ruler
 "エディタウィンドウの末尾から2行目にステータスラインを常時表示させる
-set laststatus=2
 "現在のGitブランチ
 set statusline+=%{fugitive#statusline()}
 "ファイルパス
@@ -47,6 +47,9 @@ set directory=$HOME/.vim/backup
 set incsearch
 "かっこをいれたら対応するかっこを表示
 set showmatch
+"補完ポップアップの高さ
+set pumheight=3
+
 "新しい行を作った時に高度な自動インデントを行う
 " set smarttab
 " grep検索を設定する
@@ -271,8 +274,17 @@ set whichwrap=b,s,h,l,<,>,[,]
 " 補完
 """"""""""""""""""""""""""""""
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
-
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#auto_complete_delay = 0
+" let g:deoplete#auto_complete_start_length = 2
+" let g:deoplete#enable_camel_case = 0
+" let g:deoplete#enable_ignore_case = 0
+" let g:deoplete#enable_refresh_always = 0
+" let g:deoplete#enable_smart_case = 1
+" let g:deoplete#file#enable_buffer_path = 1
+" let g:deoplete#auto_complete_delay = 5
+" let g:deoplete#auto_refresh_delay = 30
+let g:neosnippet#enable_completed_snippet = 1
 
 """"""""""""""""""""""""""""""
 "タグジャンプ
@@ -341,7 +353,6 @@ autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
 "-----------------------------------
 map <Shift><Space> :table>
 
-
 "------------------------------------
 " python
 "-----------------------------------
@@ -396,7 +407,6 @@ autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 "-----------------------------------
 " statusline
 "-----------------------------------
-set laststatus=2
 let g:lightline = {
   \ 'colorscheme': 'wombat',
   \ 'active': {
