@@ -108,80 +108,108 @@ set display+=lastline
 set laststatus=2
 set statusline=%<%f\ %m\ %r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=\ (%v,%l)/%L%8P\
 
+
+" プラグイン管理（dein）
+" プラグインが実際にインストールされるディレクトリ
+let s:dein_dir = expand('~/.vim/dein')
+" dein.vim 本体
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+" dein.vim がなければ github から落としてくる
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
+
+" 設定開始
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
+" Required:
+set runtimepath+=/Users/ayase-underdog/.cache/dein/repos/github.com/Shougo/dein.vim
+
+" Required:
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
+
+  " Let dein manage dein
+  " Required:
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+  " Add or remove your plugins here like this:
+  "call dein#add('davidhalter/jedi-vim')
+
+  let g:rc_dir    = expand('~/.vim/rc')
+  let s:toml      = g:rc_dir . '/dein.toml'
+  " " TOML を読み込み、キャッシュしておく
+  " call dein#load_toml(s:toml,      {'lazy': 0})
+  " call dein#load_toml(s:dein_dir . '/lazy.toml', {'lazy': 1})
+
+
+  let g:config_dir  = expand('~/.vim/dein/userconfig')
+  let s:toml        = g:config_dir . '/plugins.toml'
+  " let s:lazy_toml   = g:config_dir . '/plugins_lazy.toml'
+
+  " TOML 読み込み
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  " call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" インストールされていないプラグインがあればインストールする
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
+
+
 " プラグインインストールを使うのに必要な設定
-set nocompatible              " be iMproved, required
-filetype off                  " required
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-call vundle#end()            " required
-filetype plugin indent on    " required
-" Vundleを使うのにインストールするモジュールリスト
-Plugin 'gmarik/Vundle.vim'
-Plugin 'terryma/vim-expand-region'
-Plugin 'tpope/vim-fugitive'
-Plugin 'L9'
-Plugin 'basyura/TweetVim'
-Plugin 'Shougo/vimshell'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'w0rp/ale'
-" VPlugin 'jiangmiao/simple-javascript-indenter'
+"set nocompatible              " be iMproved, required
+"filetype off                  " required
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"call vundle#end()            " required
+"filetype plugin indent on    " required
+
+
+" TODO ここはあとからtoml化する
+"JS / 面倒なのでここはあとから
+" Plugin 'jiangmiao/simple-javascript-indenter'
 " Plugin 'othree/javascript-libraries-syntax.vim'
 " Plugin 'jelera/vim-javascript-syntax'
-" スタンダード
-" unite
-Plugin  'szw/vim-tags'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/neomru.vim'
-Plugin 'basyura/unite-rails'
-"Plugin 'slim-template/vim-slim.git'
-
-" 日本語入力保管
-Plugin 'fuenor/JpFormat.vim'
-Plugin 'AndrewRadev/switch.vim'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'tpope/vim-endwise'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'thinca/vim-ref'
-
-
-
-"JS / 面倒なのでここはあとから
-Plugin 'jiangmiao/simple-javascript-indenter'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'pangloss/vim-javascript'
-Plugin 'ryym/vim-riot'
-Plugin 'nicklasos/vim-jsx-riot'
-" Ruby / Rails関連
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails.git'
-Plugin 'yuku-t/vim-ref-ri'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'ryym/vim-riot'
+" Plugin 'nicklasos/vim-jsx-riot'
 " Rubyの補完
 " Plugin 'NigoroJr/rsense'
-
 " CSS
-Plugin 'JulesWang/css.vim'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'hail2u/vim-css3-syntax'
-
+" Plugin 'JulesWang/css.vim'
+" Plugitpope/vim-fugitiven 'cakebaker/scss-syntax.vim'
+" Plugin 'hail2u/vim-css3-syntax'
 " Python
 " Plugin 'myvim/python.vim'
-
-" その他Web関連
-Plugin 'Shougo/vimfiler.vim'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'slim-template/vim-slim'
-
-
-Plugin 'scrooloose/nerdtree'
-
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'roxma/nvim-yarp'
-Plugin 'roxma/vim-hug-neovim-rpc'
 
 
 
@@ -191,7 +219,7 @@ Plugin 'roxma/vim-hug-neovim-rpc'
 
 " マークダウン
 " https://github.com/gabrielelana/vim-markdown
-Plugin 'plasticboy/vim-markdown'
+" Plugin 'plasticboy/vim-markdown'
 
 
 """"""""""""""""""""""""""""""
@@ -349,15 +377,46 @@ endfunction
 "
 " " 外部コマンドで現在のファイルを実行する
 " autocmd BufNewFile,BufRead,BufEnter *.py nnoremap <C-e> :!python %
-"
-"
+
+"-----------------------------------
 " riot.js
+"-----------------------------------
 au BufNewFile,BufRead *.tag setlocal ft=html
 
+"-----------------------------------
 "タグジャンプ
+"-----------------------------------
 au BufNewFile,BufRead *.php let g:vim_tags_project_tags_command = "ctags --languages=ruby -f ~/.vim/tags/ruby.tags `pwd` 2>/dev/null &"
 nnoremap <C-d> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-s> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-U> :TagsGenerate<CR>
 
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+
+"-----------------------------------
+" statusline
+"-----------------------------------
+set laststatus=2
+let g:lightline = {
+  \ 'colorscheme': 'wombat',
+  \ 'active': {
+  \   'left': [
+  \     ['mode', 'paste'],
+  \     ['readonly', 'filename', 'modified', 'anzu']
+  \   ]
+  \ },
+  \ 'component_function': {
+  \   'anzu': 'anzu#search_status'
+  \ }
+  \ }
+
+
+"-----------------------------------
+" 検索強化
+"-----------------------------------
+" for vim-anzu
+nmap n nzz<Plug>(anzu-update-search-status)
+nmap N Nzz<Plug>(anzu-update-search-status)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
+nmap <silent> <ESC><ESC> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
