@@ -325,14 +325,12 @@ let g:neocomplete#sources#omni#input_patterns = {
 \}
 
 let g:neosnippet#snippets_directory='~/.vim/dictionaries'
-
-" let s:neco_dicts_dir = '~/.vim/dictionaries'
-" if isdirectory(s:neco_dicts_dir)
-"   let g:neocomplete#sources#dictionary#dictionaries = {
-"   \   'ruby': s:neco_dicts_dir . '/ruby.dict',
-"   \   'javascript': s:neco_dicts_dir . '/jquery.dict',
-"   \ }
-" endif
+let s:neco_dicts_dir = '~/.vim/dictionaries'
+if isdirectory(s:neco_dicts_dir)
+  let g:neocomplete#sources#dictionary#dictionaries = {
+  \   'javascript': s:neco_dicts_dir . '/jquery.dict',
+  \ }
+endif
 
 """"""""""""""""""""""""""""""
 " 構文エラーチェック
@@ -563,12 +561,17 @@ nmap <silent> <ESC><ESC> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
 augroup fileTypeIndent
     " 言語ごと
     autocmd!
+    " Python
     autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    " PHP
     autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    " Ruby
     autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
     "フレームワークごとの設定
-    "あとでかく
+    " CakePHP
+    autocmd BufNewFile,BufRead *.ctp setlocal tabstop=4 softtabstop=4 shiftwidth=4
+
 augroup END
 
 "-----------------------------------
