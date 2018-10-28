@@ -32,12 +32,16 @@ ctags -R
 # ディレクトリ
 mkdir -p ~/.vim/dein
 mkdir -p ~/.vim/dictionaries/
+mkdir -p ~/.vim/colors
 # パッケージ管理
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.vim/installer.sh
 /bin/sh ~/.vim/installer.sh ~/.cache/dein
 # 設定ファイル
 ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
 ln -s $CURRENT_PATH/vim/userconfig ~/.vim/dein/userconfig
+#色
+git clone https://github.com/tomasr/molokai ~/
+cp ~/molokai/colors/molokai.vim ~/.vim/colors/
 
 ## 補完系
 git clone https://github.com/pocke/dicts ~/.vim/dictionaries/
