@@ -425,11 +425,11 @@ nnoremap gadd :Gwrite<CR>
 nnoremap gcommit :Gcommit<CR>
 
 "Rails
-nnoremap :drc :<C-u>Denite file_rec:app/controllers/<CR><Space>
-nnoremap :drm :<C-u>Denite file_rec:app/models/ <CR><Space>
-nnoremap :drv :<C-u>Denite file_rec:app/views/ <CR><Space>
-nnoremap :drs :<C-u>Denite file_rec:app/assets/stylesheets/ <CR>
-nnoremap :drj :<C-u>Denite file_rec:app/assets/javascripts/ <CR>
+nnoremap drc :<C-u>Denite file_rec:app/controllers/<CR><Space>
+nnoremap drm :<C-u>Denite file_rec:app/models/ <CR><Space>
+nnoremap drv :<C-u>Denite file_rec:app/views/ <CR><Space>
+nnoremap drs :<C-u>Denite file_rec:app/assets/stylesheets/ <CR>
+nnoremap drj :<C-u>Denite file_rec:app/assets/javascripts/ <CR>
 
 
 
