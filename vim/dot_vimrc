@@ -414,13 +414,12 @@ call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
 
 "git
 "deniteじゃないものもあるけどここにまとめる
-nnoremap :gl :Glog<CR>
-nnoremap :gd :Gdiff<CR>
-nnoremap :gb :Denite gitbranch<CR>
-nnoremap :gs :Denite gitstatus<CR>
-nnoremap :gadd :Gwrite<CR>
-"nnoremap :gadd :Gwq<CR>
-nnoremap :gcommit :Gcommit<CR>
+nnoremap gl :Glog<CR>
+nnoremap gd :Gdiff<CR>
+nnoremap gb :Denite gitbranch<CR>
+nnoremap gs :Denite gitstatus<CR>
+nnoremap gadd :Gwrite<CR>
+nnoremap gcommit :Gcommit<CR>
 
 "Rails
 nnoremap :drc :<C-u>Denite file_rec:app/controllers/<CR><Space>
@@ -458,20 +457,13 @@ augroup source-vimrc
   autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
 augroup END
 
-"coffeee
+"------------------------------------
+" Coffee Scripts
+"-----------------------------------
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 " インデント設定
 autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
-" オートコンパイル
-  "保存と同時にコンパイルする
-" autocmd BufWritePost *.coffee silent make!
-  "エラーがあったら別ウィンドウで表示
-" autocmd QuickFixCmdPost * nested cwindow | redraw!
-" Ctrl-cで右ウィンドウにコンパイル結果を一時表示する
-" nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
-"
 
-"augroup END
 "------------------------------------
 " タブ設定
 "-----------------------------------
@@ -484,7 +476,6 @@ map <Shift><Space> :table>
 " original http://stackoverflow.com/questions/12374200/using-uncrustify-with-vim/15513829#15513829
 function! Preserve(command)
     " Save the last search.
-    let search = @/
     " Save the current cursor position.
     let cursor_position = getpos('.')
     " Save the current window position.
@@ -517,16 +508,6 @@ endfunction
 " riot.js
 "-----------------------------------
 au BufNewFile,BufRead *.tag setlocal ft=html
-
-"-----------------------------------
-"タグジャンプ
-"-----------------------------------
-au BufNewFile,BufRead *.php let g:vim_tags_project_tags_command = "ctags --languages=ruby -f ~/.vim/tags/ruby.tags `pwd` 2>/dev/null &"
-nnoremap <C-d> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
-nnoremap <C-s> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
-nnoremap <C-U> :TagsGenerate<CR>
-
-autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 
 "-----------------------------------
 " statusline
