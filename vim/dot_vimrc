@@ -1,4 +1,4 @@
-colorscheme PaperColor
+colorscheme hybrid
 set number "行番号を表示する
 set cursorline "カーソル行のハイライト
 set title "編集中のファイル名を表示
@@ -296,7 +296,9 @@ set whichwrap=b,s,h,l,<,>,[,]
 """"""""""""""""""""""""""""""
 " ツリー表示
 """"""""""""""""""""""""""""""
-autocmd VimEnter * execute 'NERDTree'
+" autocmd VimEnter * execute 'NERDTree'
+nnoremap <C-t> :NERDTree<CR>
+nnoremap nb :Bookmark<CR>
 
 """"""""""""""""""""""""""""""
 " 補完
@@ -407,11 +409,10 @@ let g:denite_source_history_yank_enable =1
 let g:denite_source_file_mru_limit = 200
 
 " 基本操作
-nnoremap <C-t> :Denite buffer<CR>
+" nnoremap <C-t> :Denite buffer<CR>
 " denite/insert モードのときは，UpDownで移動できるようにする
 call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
-
 
 "git
 "deniteじゃないものもあるけどここにまとめる
