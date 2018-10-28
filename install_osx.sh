@@ -40,8 +40,8 @@ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh >
 ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
 ln -s $CURRENT_PATH/vim/userconfig ~/.vim/dein/userconfig
 #色 また違うのにするかも
-git clone https://github.com/NLKNguyen/papercolor-theme.git ~/
-cp ~/papercolor-theme/colors/PaperColor.vim ~/.vim/colors/
+git clone https://github.com/w0ng/vim-hybrid.git ~/
+cp ~/vim-hybrid/colors/hybrid.vim ~/.vim/colors/
 
 ## 補完系
 git clone https://github.com/pocke/dicts ~/.vim/dictionaries/
