@@ -1,6 +1,6 @@
 # dotfiles
 
-# srockstyleのvimrcです。
+# srockstyleのローカル設定ファイルです。
 
 ## vimチートシート
 
