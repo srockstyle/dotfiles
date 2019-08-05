@@ -1,4 +1,4 @@
-# dotfiles
+# dotfiles Sped
 
 # srockstyleのローカル設定ファイルです。
 

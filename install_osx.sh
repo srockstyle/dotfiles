@@ -87,9 +87,9 @@ brew install django-completion
 brew install pip-completion
 
 ## 開発環境
-brew cask install virtualbox
-brew cask install vagrant
-brew cask install chefdk
+# brew cask install virtualbox
+# brew cask install vagrant
+# brew cask install chefdk
 brew cask install atom
 
 #brew cask install evernote
