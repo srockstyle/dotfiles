@@ -45,6 +45,8 @@ git clone https://github.com/pocke/dicts ~/.vim/dictionaries/
 # Ruby
 gem install solargraph
 
+## カラースキーム
+cp -rf ~/Documents/srockstyle/dotfiles/vim/colors ~/.vim
 
 ## zshrc
 mkdir -p ~/.zsh/functions
@@ -57,6 +59,11 @@ brew tap sanemat/font
 brew install Caskroom/cask/xquartz
 brew install ricty
 cp -rf /usr/local/Cellar/ricty/*/share/fonts/Ricty*.ttf ~/Library/Fonts/
+
+## git
+git config --global user.name srockstyle
+git config --global user.email kobayashi_shohei@srockstyle.com
+git log --graph --all --format="%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s"
 
 ## Brewでいれるやつ2
 brew install wget
