@@ -153,6 +153,5 @@ repo = "tpope/vim-fugitive"
 [[plugins]]
 repo = "chemzqm/denite-git"
 
-#[[plugins]]
-#repo = "Shougo/deol.nvim"
-
+[[plugins]]
+repo = "Shougo/deol.nvim"

@@ -30,29 +30,32 @@ ctags -R
 ## vim
 ##-------------
 # ディレクトリ
+rm -rf ~/.vimrc
+rm -rf ~/.vim
 mkdir -p ~/.vim/dein
 mkdir -p ~/.vim/dictionaries/
+ln -s $CURRENT_PATH/vim/userconfig ~/.vim/dein/userconfig
+ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
+ln -s $CURRENT_PATH/vim/colors ~/.vim/colors/
 # パッケージ管理
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.vim/installer.sh
 /bin/sh ~/.vim/installer.sh ~/.cache/dein
 # 設定ファイル
-ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
-ln -s $CURRENT_PATH/vim/userconfig ~/.vim/dein/userconfig
-ln -s $CURRENT_PATH/vim/colors ~/.vim/colors/
 
 ## 補完系
 git clone https://github.com/pocke/dicts ~/.vim/dictionaries/
 # Ruby
 gem install solargraph
 
-## カラースキーム
-cp -rf ~/Documents/srockstyle/dotfiles/vim/colors ~/.vim
-
 ## zshrc
-mkdir -p ~/.zsh/functions
+rm -rf ~/.zshrc
+rm -rf ~/.zsh
+mkdir ~/.zsh
+ln -s $CURRENT_PATH/zshrc/main.zsh ~/.zshrc
+ln -s $CURRENT_PATH/zshrc/zsh.d ~/.zsh/functions
 git clone git://github.com/zsh-users/zaw.git ~/.zsh/functions/zaw
 git clone git://github.com/mollifier/cd-gitroot.git ~/.zsh/functions/cd-gitroot
-ln -s $CURRENT_PATH/zshrc/dot_zshrc ~/.zshrc
+
 
 ## font
 brew tap sanemat/font
@@ -97,7 +100,6 @@ brew install pip-completion
 # brew cask install virtualbox
 # brew cask install vagrant
 # brew cask install chefdk
-brew cask install atom
 
 #brew cask install evernote
 #brew cask install skitch
