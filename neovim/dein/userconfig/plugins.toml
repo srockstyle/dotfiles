@@ -1,0 +1,170 @@
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'basyura/TweetVim'
+
+[[plugins]]
+repo = 'Shougo/vimshell'
+
+[[plugins]]
+repo = 'szw/vim-tags'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'tpope/vim-rails'
+
+[[plugins]]
+repo = 'fuenor/JpFormat.vim'
+
+[[plugins]]
+repo = 'AndrewRadev/switch.vim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+# スニペットシリーズ
+[[plugins]]
+repo = 'honza/vim-snippets'
+
+# Ruby補完
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
+
+[[plugins]]
+repo = 'thinca/vim-ref'
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+
+[[plugins]]
+repo = 'tpope/vim-rails.git'
+
+[[plugins]]
+repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'yuku-t/vim-ref-ri'
+
+[[plugins]]
+repo = 'JulesWang/css.vim'
+
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+
+[[plugins]]
+repo = 'tmhedberg/matchit'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+[[plugins]]
+repo = 'slim-template/vim-slim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+
+# 非同期処理
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+
+# statusline
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+# インデントを可視化
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+
+# 無駄な空白をハイライト
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+# j, k移動高速化
+[[plugins]]
+repo = 'rhysd/accelerated-jk'
+
+# /検索強化
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+
+# 検索強化
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+
+# vimスクリプト補完
+#[[plugins]]
+#repo = 'Shougo/neco-vim'
+
+# 各プラグインの内部をみて言語補完。
+#[[plugins]]
+#repo = 'Shougo/neco-syntax'
+
+# lookをつかった補完
+[[plugins]]
+repo = 'ujihisa/neco-look'
+
+# 構文チェック
+[[plugins]]
+repo = 'scrooloose/syntastic'
+
+[[plugins]]
+repo = 'ngmy/vim-rubocop'
+
+# git
+[[plugins]]
+repo = "airblade/vim-gitgutter"
+
+[[plugins]]
+repo = "tpope/vim-fugitive"
+
+[[plugins]]
+repo = "Shougo/denite.nvim"
+
+[[plugins]]
+repo = "chemzqm/denite-git"
+
+[[plugins]]
+repo = "Shougo/deol.nvim"
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
