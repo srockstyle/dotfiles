@@ -148,10 +148,18 @@ repo = "airblade/vim-gitgutter"
 repo = "tpope/vim-fugitive"
 
 [[plugins]]
-#repo = "Shougo/denite.nvim"
+repo = "Shougo/denite.nvim"
 
 [[plugins]]
 repo = "chemzqm/denite-git"
 
 [[plugins]]
 repo = "Shougo/deol.nvim"
+
+[[plugins]]
+repo = "tpope/vim-surround"
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+
