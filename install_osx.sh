@@ -65,6 +65,11 @@ ln -s $CURRENT_PATH/neovim ~/config/neovim
 # パッケージ管理
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.config/nvim/installer.sh
 /bin/sh ~/.config/nvim/installer.sh ~/.cache_nvim/dein
+# 設定ファイル
+## 補完系
+git clone https://github.com/pocke/dicts ~/.config/nvim/dictionaries/
+# Ruby
+gem install solargraph
 
 
 
