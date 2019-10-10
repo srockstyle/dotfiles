@@ -22,7 +22,9 @@ brew install ghq
 brew install peco
 brew install hub
 brew install lua
-brew install vim --with-python3 --with-lua
+brew install pyithon3
+brew install vim
+brew install neovim
 brew install ctags
 brew install yarn --ignore-dependencies
 # brew install node
@@ -43,19 +45,37 @@ ln -s $CURRENT_PATH/vim/colors ~/.vim/colors/
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.vim/installer.sh
 /bin/sh ~/.vim/installer.sh ~/.cache/dein
 # 設定ファイル
-
 ## 補完系
 git clone https://github.com/pocke/dicts ~/.vim/dictionaries/
 # Ruby
 gem install solargraph
+
+##-------------
+## neovim
+##-------i------
+rm -rf ~/.config
+
+brew install neovim
+brew install the_silver_searcher
+/usr/local/bin/pip3 install neovim
+
+## 設定ファイル
+mkdir -p ~/.config
+ln -s $CURRENT_PATH/neovim ~/config/neovim
+## ディレクトリ
+# パッケージ管理
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.config/nvim/installer.sh
+/bin/sh ~/.config/nvim/installer.sh ~/.cache_nvim/dein
+
+
 
 ## zshrc
 rm -rf ~/.zshrc
 rm -rf ~/.zsh
 mkdir ~/.zsh
 mkdir ~/.cache/shell
-ln -s $CURRENT_PATH/zshrc/main.zsh ~/.zshrc
-ln -s $CURRENT_PATH/zshrc/zsh.d ~/.zsh/functions
+ln -s $CURRENT_PATH/zsh/main.zsh ~/.zshrc
+ln -s $CURRENT_PATH/zsh/zsh.d ~/.zsh/functions
 git clone git://github.com/zsh-users/zaw.git ~/.zsh/functions/zaw
 git clone git://github.com/mollifier/cd-gitroot.git ~/.zsh/functions/cd-gitroot
 git clone git://github.com/yyuu/pyenv.git ~/.pyenv
@@ -101,3 +121,4 @@ ec2ssh init
 ec2ssh update
 gem install kitchen-vagrant
 brew cask install cheatsheet
+brew cask install evernote
