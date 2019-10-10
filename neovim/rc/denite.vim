@@ -66,17 +66,22 @@ command! Dprev execute(':Denite -resume -buffer-name=grep-buffer-denite -cursor-
 
 
 "ファイル関連
+" カーソルを合わせた単語を全体からgrep
 nmap <silent> <C-u><C-]> :<C-u>DeniteCursorWord grep<CR>
+" yankを貼り付ける
 nmap <silent> <C-u><C-y> :<C-u>Denite neoyank<CR>
+" ディレクトリ検索
 nmap <silent> <C-u><C-d> :<C-u>Denite directory_rec<CR>
-" nmap <silent> <C-u><C-j> :<C-u>Denite line<CR>
-" nnmap <silent> <C-u>- :<C-u>Denite -resume -immediately -select=-1<CR>
-" nmap <silent> <C-u><C-t> :<C-u>Denite filetype<CR>
-" map <silent> <C-u><C-p> :<C-u>Denite file_rec<CR>
-" nmap <silent> <C-u><C-u> :<C-u>Denite file_mru<CR>
-" nmap <silent> <C-u><C-r> :<C-u>Denite -resume<CR>
-" nmap <silent> <C-u>; :<C-u>Denite -resume -immediately -select=+1<CR>
-" nmap <silent> <C-u>- :<C-u>Denite -resume -immediately -select=-1<CR>
+
+"現在開いているファイルのディレクトリ下のファイル一覧。
+nnoremap <silent> <C-u><C-l>  :<C-u>DeniteBufferDir
+      \ -direction=topleft file file:new<CR>
+"バッファ一覧
+nnoremap <silent> <C-u><C-d> :<C-u>Denite -direction=topleft buffer<CR>
+"レジスタ一覧
+nnoremap <silent> <C-u><C-g> :<C-u>Denite -direction=topleft -buffer-name=register register<CR>
+"最近使用したファイル一覧
+nnoremap <silent> <C-u><C-r> :<C-u>Denite -direction=topleft file_mru<CR>
 
 "deniteじゃないものもあるけどここにまとめる
 nnoremap gd :Gdiff<CR>
