@@ -150,6 +150,10 @@ bindkey ";5D" backward-word
 
 ## 毎回削除が走るので、単語の一部として扱われる文字のセット指定。
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+
+
+## 分割したzshファイルを読み込む
 ZSHHOME="${HOME}/.zsh/functions"
 
 if [ -d $ZSHHOME -a -r $ZSHHOME -a \
