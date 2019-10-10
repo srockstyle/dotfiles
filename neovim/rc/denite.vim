@@ -83,6 +83,13 @@ nnoremap <silent> <C-u><C-g> :<C-u>Denite -direction=topleft -buffer-name=regist
 "最近使用したファイル一覧
 nnoremap <silent> <C-u><C-r> :<C-u>Denite -direction=topleft file_mru<CR>
 
+" gitlog
+nmap <silent> <C-u><C-o> :<C-u>Denite gitlog<CR>
+" all git log of current repository
+nmap <silent> <C-u><C-p> :<C-u>Denite gitlog:all<CR>
+" Git status
+nmap <silent> <C-u><C-i> :<C-u>Denite gitstatus<CR>
+
 "deniteじゃないものもあるけどここにまとめる
 nnoremap gd :Gdiff<CR>
 nnoremap gb :Denite gitbranch<CR>

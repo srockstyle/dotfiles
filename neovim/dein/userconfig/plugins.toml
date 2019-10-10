@@ -180,3 +180,6 @@ repo = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'Xuyuanp/nerdtree-git-plugin'
+
+[[plugins]]
+repo = 'chemzqm/denite-git'
