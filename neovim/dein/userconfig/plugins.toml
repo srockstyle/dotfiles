@@ -79,9 +79,6 @@ repo = 'hail2u/vim-css3-syntax'
 repo = 'tmhedberg/matchit'
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
-
-[[plugins]]
 repo = 'tomtom/tcomment_vim'
 
 [[plugins]]
@@ -168,3 +165,18 @@ repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'tpope/vim-repeat'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
