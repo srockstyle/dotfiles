@@ -60,6 +60,7 @@ brew install the_silver_searcher
 
 ## 設定ファイル
 mkdir -p ~/.config
+mkdir ~/.config/neovim/dictionaries
 ln -s $CURRENT_PATH/neovim ~/config/neovim
 ## ディレクトリ
 # パッケージ管理

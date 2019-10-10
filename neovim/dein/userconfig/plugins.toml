@@ -40,6 +40,10 @@ repo = 'Shougo/neosnippet'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
+# スニペットシリーズ
+[[plugins]]
+repo = 'honza/vim-snippets'
+
 # Ruby補完
 [[plugins]]
 repo = 'osyo-manga/vim-monster'

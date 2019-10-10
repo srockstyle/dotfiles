@@ -20,29 +20,22 @@ endif
 set runtimepath+=~/.cache_nvim/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache_nvim/dein')
   call dein#begin('~/.cache_nvim/dein')
-
-  " Let dein manage dein
-  " Required:
   call dein#add('~/.cache_nvim/dein/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here like this:
-  "call dein#add('davidhalter/jedi-vim')
-
-  let g:rc_dir    = expand('~/.vim/rc')
+  let g:rc_dir    = expand('~/.config/nvim/rc')
   let s:toml      = g:rc_dir . '/dein.toml'
-  " " TOML を読み込み、キャッシュしておく
-  " call dein#load_toml(s:toml,      {'lazy': 0})
-  " call dein#load_toml(s:dein_dir . '/lazy.toml', {'lazy': 1})
+  let g:config_dir  = expand('~/.config/nvim/dein/userconfig')
+  let s:toml = [
+        \ {'name': 'default'},
+        \ {'name': 'lazy',          'lazy': 1},
+        \ {'name': 'defx_lazy',     'lazy': 1},
+        \ {'name': 'denite_lazy',   'lazy': 1},
+        \ {'name': 'deoplete_lazy', 'lazy': 1},
+        \ ]
+  let s:path = {name -> $HOME . '~/.config/nvim/dein/userconfig/' . name . '.toml'}
+  let s:load_toml = {name, lazy -> dein#load_toml(s:path(name), {'lazy': lazy})}
 
-
-  let g:config_dir  = expand('~/.vim/dein/userconfig')
-  let s:toml        = g:config_dir . '/plugins.toml'
-  " let s:lazy_toml   = g:config_dir . '/plugins_lazy.toml'
-
-  " TOML 読み込み
-  call dein#load_toml(s:toml,      {'lazy': 0})
-  " call dein#load_toml(s:lazy_toml, {'lazy': 1})
-
+  " call dein#begin(s:dein_dir, map(deepcopy(s:toml), {_, t -> t['name']}))
+  " call map(s:toml, {_, t -> s:load_toml(t['name'], get(t, 'lazy', 0))})
   call dein#end()
   call dein#save_state()
 endif

@@ -10,6 +10,8 @@ set tabstop=2
 set autoindent
 set expandtab
 set shiftwidth=2
+"ビープ音を消す
+set belloff=all
 "オートインデント
 " 保存時に行末の空白を除去する
 autocmd BufWritePre * :%s/\s\+$//ge
@@ -48,13 +50,13 @@ set smartcase
 " 検索結果をハイライト
 set hlsearch
 " タブと行の続きを可視化する
-" set listchars=tab:>\ ,extends:<
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " 対応する括弧やブレースを表示する
 set showmatch
 " スワップファイル用のパス
 set directory=$HOME/.config/nvim/backup
 " %で対応するかっこへ移動
-"source $VIMRUNTIME/macros/matchit.config/nvim
+" source $VIMRUNTIME/macros/matchit.config/vim
 "インクリメンタルサーチ
 set incsearch
 "かっこをいれたら対応するかっこを表示
@@ -72,6 +74,11 @@ inoremap <C-e> <Esc>$a
 inoremap <C-a> <Esc>^a
 noremap <C-e> <Esc>$a
 noremap <C-a> <Esc>^a
+" インタラクティブに置換する
+set inccommand=split
+" ノーマルモード移行で保存
+inoremap <silent> jj <ESC>:<C-u>w<CR>
+
 
 map <C-T> :table
 
@@ -92,9 +99,6 @@ endif
 
 
 " call pathogen#infect()
-
-syntax enable
-filetype plugin indent on
 
 
 " vimのファイルタイプによる設定
@@ -126,6 +130,11 @@ nnoremap <Up>   gk
 " inoremap <Down> <Nop>
 " inoremap <Left> <Nop>
 " inoremap <Right> <Nop>
+"20行ずつ移動
+nnoremap <C-n> 5j
+vnoremap <C-n> 5j
+nnoremap <C-p> 5k
+vnoremap <C-p> 5k
 
 "
 "日本語の行の連結時には空白を入力しない。
@@ -198,6 +207,15 @@ augroup source-vimrc
   autocmd BufWritePost *vimrc source $MYVIMRC | set foldmethod=marker
   autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
 
+
+" タブリファクタリング
+nnoremap tab :set expandtab<Enter>:retab<Enter>:w<Enter>
+
+
+"上スライド
+nnoremap MM ddkkp
+"下スライド
+nnoremap mm ddp
 
 
 "------------------------------------
