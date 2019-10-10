@@ -24,7 +24,6 @@ brew install hub
 brew install lua
 brew install pyithon3
 brew install vim
-brew install neovim
 brew install ctags
 brew install yarn --ignore-dependencies
 # brew install node

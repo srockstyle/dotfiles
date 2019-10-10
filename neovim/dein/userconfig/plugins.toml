@@ -32,7 +32,7 @@ repo = 'fuenor/JpFormat.vim'
 repo = 'AndrewRadev/switch.vim'
 
 [[plugins]]
-repo = 'Shougo/neocomplete'
+repo = 'Shougo/deoplete.nvim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet'
