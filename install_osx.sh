@@ -56,6 +56,8 @@ rm -rf ~/.config
 
 brew install neovim
 brew install the_silver_searcher
+brew install fzf
+
 /usr/local/bin/pip3 install neovim
 
 ## 設定ファイル

@@ -22,8 +22,8 @@ repo = 'Shougo/denite.nvim'
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 
-#[[plugins]]
-#repo = 'basyura/unite-rails'
+[[plugins]]
+repo = 'tpope/vim-rails'
 
 [[plugins]]
 repo = 'fuenor/JpFormat.vim'
@@ -62,6 +62,9 @@ repo = 'vim-ruby/vim-ruby'
 
 [[plugins]]
 repo = 'tpope/vim-rails.git'
+
+[[plugins]]
+repo = 'w0rp/ale'
 
 [[plugins]]
 repo = 'yuku-t/vim-ref-ri'
@@ -159,3 +162,9 @@ repo = "chemzqm/denite-git"
 
 [[plugins]]
 repo = "Shougo/deol.nvim"
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'tpope/vim-repeat'
