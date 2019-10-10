@@ -36,7 +36,7 @@ brew install yarn --ignore-dependencies
 rm -rf ~/.vimrc
 rm -rf ~/.vim
 mkdir -p ~/.vim/dein
-mkdir -p ~/.vim/dictionaries/
+# mkdir -p ~/.vim/dictionaries/
 ln -s $CURRENT_PATH/vim/userconfig ~/.vim/dein/userconfig
 ln -s $CURRENT_PATH/vim/dot_vimrc ~/.vimrc
 ln -s $CURRENT_PATH/vim/colors ~/.vim/colors/
@@ -62,8 +62,8 @@ brew install fzf
 
 ## 設定ファイル
 mkdir -p ~/.config
-mkdir ~/.config/neovim/dictionaries
-ln -s $CURRENT_PATH/neovim ~/config/neovim
+mkdir ~/.config/nvim/dictionaries
+ln -s $CURRENT_PATH/neovim ~/config/nvim
 ## ディレクトリ
 # パッケージ管理
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.config/nvim/installer.sh
