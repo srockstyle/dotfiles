@@ -2,7 +2,7 @@
 " ツリー表示
 """"""""""""""""""""""""""""""
 " 起動時に動く
-autocmd VimEnter * execute 'NERDTree'
+"autocmd VimEnter * execute 'NERDTree'
 
 " C-t で開いたり閉じたり
 nnoremap <C-t> :NERDTreeToggle<CR>
