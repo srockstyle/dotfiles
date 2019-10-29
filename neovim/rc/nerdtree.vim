@@ -5,7 +5,7 @@
 "autocmd VimEnter * execute 'NERDTree'
 
 " C-t で開いたり閉じたり
-nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-t><C-n> :NERDTreeToggle<CR>
 
 nnoremap nb :Bookmark<CR>
 " "親ディレクトリ
